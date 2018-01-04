@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+  <table-filter match-catalog="tochatting" match-name="admin_user"/>
+  <table-filter match-catalog="tochatting" match-name="anchor_class"/>
+  <table-filter match-catalog="tochatting" match-name="anchor_online"/>
+  <table-filter match-catalog="tochatting" match-name="anchor_sheet"/>
+  <table-filter match-catalog="tochatting" match-name="anchor_status"/>
+  <table-filter match-catalog="tochatting" match-name="anchor_status_sheet"/>
+  <table-filter match-catalog="tochatting" match-name="chat_sheet"/>
+  <table-filter match-catalog="tochatting" match-name="comment_sheet"/>
+  <table-filter match-catalog="tochatting" match-name="dynamic_likes"/>
+  <table-filter match-catalog="tochatting" match-name="feedback_sheet"/>
+  <table-filter match-catalog="tochatting" match-name="follow_sheet"/>
+  <table-filter match-catalog="tochatting" match-name="friend_sheet"/>
+  <table-filter match-catalog="tochatting" match-name="friend_status"/>
+  <table-filter match-catalog="tochatting" match-name="gift_sheet"/>
+  <table-filter match-catalog="tochatting" match-name="home_user"/>
+  <table-filter match-catalog="tochatting" match-name="homenews_sheet"/>
+  <table-filter match-catalog="tochatting" match-name="inviting_friends"/>
+  <table-filter match-catalog="tochatting" match-name="label_sheet"/>
+  <table-filter match-catalog="tochatting" match-name="login_sheet"/>
+  <table-filter match-catalog="tochatting" match-name="money_flow"/>
+  <table-filter match-catalog="tochatting" match-name="monthly_members"/>
+  <table-filter match-catalog="tochatting" match-name="news_sheet"/>
+  <table-filter match-catalog="tochatting" match-name="order_problem"/>
+  <table-filter match-catalog="tochatting" match-name="order_sheet"/>
+  <table-filter match-catalog="tochatting" match-name="order_status"/>
+  <table-filter match-catalog="tochatting" match-name="push_activity"/>
+  <table-filter match-catalog="tochatting" match-name="push_message"/>
+  <table-filter match-catalog="tochatting" match-name="reply_sheet"/>
+  <table-filter match-catalog="tochatting" match-name="report_sheet"/>
+  <table-filter match-catalog="tochatting" match-name="reward_sheet"/>
+  <table-filter match-catalog="tochatting" match-name="user_dynamic"/>
+  <table-filter match-catalog="tochatting" match-name="user_hobby"/>
+  <table-filter match-catalog="tochatting" match-name="user_recharge"/>
+  <table-filter match-catalog="tochatting" match-name="user_sheet"/>
+  <table-filter match-catalog="tochatting" match-name="user_type"/>
+  <table-filter match-catalog="tochatting" match-name="video_sheet"/>
+  <table-filter match-catalog="tochatting" match-name="voice_sheet"/>
+  <table-filter match-catalog="tochatting" match-name="with_drawals"/>
+</hibernate-reverse-engineering>

@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-12-1 14:27:23 by Hibernate Tools 4.0.0.Final -->
+<hibernate-mapping>
+    <class name="com.changuang.domain.entity.MonthlyMembers" table="monthly_members" catalog="tochatting">
+        <id name="recid" type="java.lang.Integer">
+            <column name="recid" />
+            <generator class="identity" />
+        </id>
+        <property name="userRecid" type="java.lang.Integer">
+            <column name="user_recid">
+                <comment>&#211;&#195;&#187;&#167;&#214;&#247;&#188;&#252;</comment>
+            </column>
+        </property>
+        <property name="createTime" type="timestamp">
+            <column name="create_time" length="19">
+                <comment>&#180;&#180;&#189;&#168;&#202;&#177;&#188;&#228;</comment>
+            </column>
+        </property>
+        <property name="openTime" type="timestamp">
+            <column name="open_time" length="19">
+                <comment>&#191;&#170;&#205;&#168;&#202;&#177;&#188;&#228;</comment>
+            </column>
+        </property>
+        <property name="endTime" type="timestamp">
+            <column name="end_time" length="19">
+                <comment>&#189;&#225;&#202;&#248;&#202;&#177;&#188;&#228;</comment>
+            </column>
+        </property>
+        <property name="availableTime" type="string">
+            <column name="available_time" length="20">
+                <comment>&#191;&#201;&#211;&#195;&#202;&#177;&#179;&#164;&#163;&#168;&#215;&#170;&#187;&#187;&#179;&#201;&#195;&#235;&#163;&#169;</comment>
+            </column>
+        </property>
+        <property name="isAvailable" type="java.lang.Integer">
+            <column name="is_available">
+                <comment>&#202;&#199;&#183;&#241;&#191;&#201;&#211;&#195;(0&#206;&#170;&#183;&#241;1&#206;&#170;&#202;&#199;)</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

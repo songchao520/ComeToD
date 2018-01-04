@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-12-1 14:27:23 by Hibernate Tools 4.0.0.Final -->
+<hibernate-mapping>
+    <class name="com.changuang.domain.entity.RewardSheet" table="reward_sheet" catalog="tochatting">
+        <id name="recid" type="java.lang.Integer">
+            <column name="recid" />
+            <generator class="identity" />
+        </id>
+        <property name="userRecid" type="java.lang.Integer">
+            <column name="user_recid">
+                <comment>&#211;&#195;&#187;&#167;&#214;&#247;&#188;&#252;</comment>
+            </column>
+        </property>
+        <property name="anchorRecid" type="java.lang.Integer">
+            <column name="anchor_recid">
+                <comment>&#214;&#247;&#178;&#165;&#214;&#247;&#188;&#252;</comment>
+            </column>
+        </property>
+        <property name="createTime" type="timestamp">
+            <column name="create_time" length="19">
+                <comment>&#180;&#180;&#189;&#168;&#202;&#177;&#188;&#228;</comment>
+            </column>
+        </property>
+        <property name="rewardAmount" type="java.lang.Float">
+            <column name="reward_amount" precision="12" scale="0">
+                <comment>&#180;&#242;&#201;&#205;&#189;&#240;&#182;&#238;</comment>
+            </column>
+        </property>
+        <property name="giftRecid" type="java.lang.Integer">
+            <column name="gift_recid">
+                <comment>&#192;&#241;&#206;&#239;&#192;&#224;&#208;&#205;</comment>
+            </column>
+        </property>
+        <property name="giftNumber" type="java.lang.Integer">
+            <column name="gift_number">
+                <comment>&#192;&#241;&#206;&#239;&#202;&#253;&#193;&#191;</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

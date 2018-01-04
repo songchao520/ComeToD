@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-12-1 14:27:23 by Hibernate Tools 4.0.0.Final -->
+<hibernate-mapping>
+    <class name="com.changuang.domain.entity.OrderSheet" table="order_sheet" catalog="tochatting">
+        <id name="recid" type="java.lang.Integer">
+            <column name="recid" />
+            <generator class="identity" />
+        </id>
+        <property name="userRecid" type="java.lang.Integer">
+            <column name="user_recid">
+                <comment>&#211;&#195;&#187;&#167;&#214;&#247;&#188;&#252;</comment>
+            </column>
+        </property>
+        <property name="anchorRecid" type="java.lang.Integer">
+            <column name="anchor_recid">
+                <comment>&#214;&#247;&#178;&#165;&#214;&#247;&#188;&#252;</comment>
+            </column>
+        </property>
+        <property name="orderStatus" type="java.lang.Integer">
+            <column name="order_status">
+                <comment>&#182;&#169;&#181;&#165;&#215;&#180;&#204;&#172;</comment>
+            </column>
+        </property>
+        <property name="startTime" type="timestamp">
+            <column name="start_time" length="19">
+                <comment>&#191;&#170;&#202;&#188;&#202;&#177;&#188;&#228;</comment>
+            </column>
+        </property>
+        <property name="endTime" type="timestamp">
+            <column name="end_time" length="19">
+                <comment>&#189;&#225;&#202;&#248;&#202;&#177;&#188;&#228;</comment>
+            </column>
+        </property>
+        <property name="createTime" type="timestamp">
+            <column name="create_time" length="19">
+                <comment>&#180;&#180;&#189;&#168;&#202;&#177;&#188;&#228;</comment>
+            </column>
+        </property>
+        <property name="purchaseTime" type="string">
+            <column name="purchase_time" length="20">
+                <comment>&#185;&#186;&#194;&#242;&#202;&#177;&#179;&#164;&#163;&#168;&#181;&#189;&#195;&#235;&#163;&#169;</comment>
+            </column>
+        </property>
+        <property name="useTime" type="string">
+            <column name="use_time" length="20">
+                <comment>&#203;&#249;&#211;&#195;&#202;&#177;&#179;&#164;&#163;&#168;&#181;&#189;S&#163;&#169;</comment>
+            </column>
+        </property>
+        <property name="orderEvaluate" type="string">
+            <column name="order_evaluate">
+                <comment>&#182;&#169;&#181;&#165;&#198;&#192;&#188;&#219;</comment>
+            </column>
+        </property>
+        <property name="orderScore" type="java.lang.Float">
+            <column name="order_score" precision="12" scale="0">
+                <comment>&#182;&#169;&#181;&#165;&#198;&#192;&#183;&#214;</comment>
+            </column>
+        </property>
+        <property name="tipAnchor" type="java.lang.Float">
+            <column name="tip_anchor" precision="12" scale="0">
+                <comment>&#182;&#169;&#181;&#165;&#208;&#161;&#183;&#209;</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

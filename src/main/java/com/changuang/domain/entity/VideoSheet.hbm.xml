@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-12-1 14:27:23 by Hibernate Tools 4.0.0.Final -->
+<hibernate-mapping>
+    <class name="com.changuang.domain.entity.VideoSheet" table="video_sheet" catalog="tochatting">
+        <id name="recid" type="java.lang.Integer">
+            <column name="recid" />
+            <generator class="identity" />
+        </id>
+        <property name="anchorRecid" type="java.lang.Integer">
+            <column name="anchor_recid">
+                <comment>&#214;&#247;&#178;&#165;&#214;&#247;&#188;&#252;</comment>
+            </column>
+        </property>
+        <property name="createTime" type="timestamp">
+            <column name="create_time" length="19">
+                <comment>&#180;&#180;&#189;&#168;&#202;&#177;&#188;&#228;</comment>
+            </column>
+        </property>
+        <property name="videoLabel" type="string">
+            <column name="video_label" length="20">
+                <comment>&#214;&#177;&#178;&#165;&#177;&#234;&#199;&#169;</comment>
+            </column>
+        </property>
+        <property name="roomName" type="string">
+            <column name="room_name" length="20">
+                <comment>&#183;&#191;&#188;&#228;&#195;&#251;&#179;&#198;</comment>
+            </column>
+        </property>
+        <property name="isFree" type="java.lang.Integer">
+            <column name="is_free">
+                <comment>&#202;&#199;&#183;&#241;&#191;&#213;&#207;&#208;(0&#183;&#241;1&#202;&#199;)</comment>
+            </column>
+        </property>
+        <property name="isHot" type="java.lang.Integer">
+            <column name="is_hot">
+                <comment>&#202;&#199;&#183;&#241;&#211;&#197;&#207;&#200;&#200;&#200;&#195;&#197;</comment>
+            </column>
+        </property>
+        <property name="isRecommend" type="java.lang.Integer">
+            <column name="is_recommend">
+                <comment>&#202;&#199;&#183;&#241;&#211;&#197;&#207;&#200;&#205;&#198;&#188;&#246;</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

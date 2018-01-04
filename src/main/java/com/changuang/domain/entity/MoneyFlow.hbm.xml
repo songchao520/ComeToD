@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-12-1 14:27:23 by Hibernate Tools 4.0.0.Final -->
+<hibernate-mapping>
+    <class name="com.changuang.domain.entity.MoneyFlow" table="money_flow" catalog="tochatting">
+        <id name="recid" type="java.lang.Integer">
+            <column name="recid" />
+            <generator class="identity" />
+        </id>
+        <property name="userRecid" type="java.lang.Integer">
+            <column name="user_recid">
+                <comment>&#211;&#195;&#187;&#167;&#214;&#247;&#188;&#252;</comment>
+            </column>
+        </property>
+        <property name="anchorRecid" type="java.lang.Integer">
+            <column name="anchor_recid">
+                <comment>&#214;&#247;&#178;&#165;&#214;&#247;&#188;&#252;</comment>
+            </column>
+        </property>
+        <property name="moneyAmount" type="java.lang.Float">
+            <column name="money_amount" precision="12" scale="0">
+                <comment>&#189;&#240;&#182;&#238;</comment>
+            </column>
+        </property>
+        <property name="moneyCategory" type="java.lang.Integer">
+            <column name="money_category">
+                <comment>
+                &#189;&#240;&#199;&#174;&#192;&#224;&#177;&#240;&#163;&#168;0&#206;&#170;&#179;&#228;&#214;&#181;&#163;&#172;1&#206;&#170;&#207;&#251;&#183;&#209;&#163;&#169;</comment>
+            </column>
+        </property>
+        <property name="createTime" type="timestamp">
+            <column name="create_time" length="19">
+                <comment>&#180;&#180;&#189;&#168;&#202;&#177;&#188;&#228;</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

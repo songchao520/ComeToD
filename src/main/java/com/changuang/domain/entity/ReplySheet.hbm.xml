@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-12-1 14:27:23 by Hibernate Tools 4.0.0.Final -->
+<hibernate-mapping>
+    <class name="com.changuang.domain.entity.ReplySheet" table="reply_sheet" catalog="tochatting">
+        <id name="recid" type="java.lang.Integer">
+            <column name="recid" />
+            <generator class="identity" />
+        </id>
+        <property name="userRecid" type="java.lang.Integer">
+            <column name="user_recid">
+                <comment>&#211;&#195;&#187;&#167;&#214;&#247;&#188;&#252;</comment>
+            </column>
+        </property>
+        <property name="commentRecid" type="java.lang.Integer">
+            <column name="comment_recid">
+                <comment>&#198;&#192;&#194;&#219;&#214;&#247;&#188;&#252;</comment>
+            </column>
+        </property>
+        <property name="createTime" type="timestamp">
+            <column name="create_time" length="19">
+                <comment>&#180;&#180;&#189;&#168;&#202;&#177;&#188;&#228;</comment>
+            </column>
+        </property>
+        <property name="replyContent" type="string">
+            <column name="reply_content">
+                <comment>&#198;&#192;&#194;&#219;&#196;&#218;&#200;&#221;</comment>
+            </column>
+        </property>
+        <property name="replyUserrecid" type="java.lang.Integer">
+            <column name="reply_userrecid">
+                <comment>
+                &#200;&#231;&#185;&#251;&#202;&#199;&#187;&#216;&#184;&#180;&#198;&#228;&#203;&#251;&#211;&#195;&#187;&#167;,&#177;&#163;&#180;&#230;&#198;&#228;&#214;&#247;&#188;&#252;</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

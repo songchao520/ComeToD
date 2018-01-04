@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-12-1 14:27:23 by Hibernate Tools 4.0.0.Final -->
+<hibernate-mapping>
+    <class name="com.changuang.domain.entity.AnchorStatusSheet" table="anchor_status_sheet" catalog="tochatting">
+        <id name="recid" type="java.lang.Integer">
+            <column name="recid" />
+            <generator class="identity" />
+        </id>
+        <property name="userRecid" type="java.lang.Integer">
+            <column name="user_recid">
+                <comment>&#211;&#195;&#187;&#167;&#214;&#247;&#188;&#252;</comment>
+            </column>
+        </property>
+        <property name="anchorRecid" type="java.lang.Integer">
+            <column name="anchor_recid">
+                <comment>
+                &#214;&#247;&#178;&#165;&#214;&#247;&#188;&#252;(&#179;&#201;&#185;&#166;&#214;&#174;&#186;&#243;&#180;&#230;&#200;&#235;&#214;&#247;&#178;&#165;&#177;&#237;)</comment>
+            </column>
+        </property>
+        <property name="anchorName" type="string">
+            <column name="anchor_name" length="20">
+                <comment>&#214;&#247;&#178;&#165;&#208;&#213;&#195;&#251;</comment>
+            </column>
+        </property>
+        <property name="anchorIdcord" type="string">
+            <column name="anchor_idcord" length="25">
+                <comment>&#201;&#237;&#183;&#221;&#214;&#164;&#186;&#197;</comment>
+            </column>
+        </property>
+        <property name="examinePhoto" type="string">
+            <column name="examine_photo" length="200">
+                <comment>&#201;&#243;&#186;&#203;&#213;&#213;&#198;&#172;</comment>
+            </column>
+        </property>
+        <property name="examineStatus" type="java.lang.Integer">
+            <column name="examine_status">
+                <comment>&#201;&#243;&#186;&#203;&#215;&#180;&#204;&#172;</comment>
+            </column>
+        </property>
+        <property name="createTime" type="timestamp">
+            <column name="create_time" length="19">
+                <comment>&#180;&#180;&#189;&#168;&#202;&#177;&#188;&#228;</comment>
+            </column>
+        </property>
+        <property name="userBirthday" type="date">
+            <column name="user_birthday" length="10">
+                <comment>&#201;&#250;&#200;&#213;</comment>
+            </column>
+        </property>
+        <property name="userAddress" type="string">
+            <column name="user_address" length="100">
+                <comment>&#203;&#249;&#212;&#218;&#181;&#216;&#199;&#248;</comment>
+            </column>
+        </property>
+        <property name="userOccupation" type="string">
+            <column name="user_occupation" length="20">
+                <comment>&#214;&#176;&#210;&#181;</comment>
+            </column>
+        </property>
+        <property name="myPhoto" type="string">
+            <column name="my_photo" length="200">
+                <comment>&#215;&#212;&#197;&#196;</comment>
+            </column>
+        </property>
+        <property name="chatAbility" type="string">
+            <column name="chat_ability" length="100">
+                <comment>&#193;&#196;&#204;&#236;&#196;&#220;&#193;&#166;</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

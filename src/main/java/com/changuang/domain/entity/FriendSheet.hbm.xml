@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-12-1 14:27:23 by Hibernate Tools 4.0.0.Final -->
+<hibernate-mapping>
+    <class name="com.changuang.domain.entity.FriendSheet" table="friend_sheet" catalog="tochatting">
+        <id name="recid" type="java.lang.Integer">
+            <column name="recid" />
+            <generator class="identity" />
+        </id>
+        <property name="userRecidone" type="java.lang.Integer">
+            <column name="user_recidone">
+                <comment>&#211;&#195;&#187;&#167;&#214;&#247;&#188;&#252;1</comment>
+            </column>
+        </property>
+        <property name="userRecidtwo" type="java.lang.Integer">
+            <column name="user_recidtwo">
+                <comment>&#211;&#195;&#187;&#167;&#214;&#247;&#188;&#252;2</comment>
+            </column>
+        </property>
+        <property name="createTime" type="timestamp">
+            <column name="create_time" length="19">
+                <comment>&#180;&#180;&#189;&#168;&#202;&#177;&#188;&#228;</comment>
+            </column>
+        </property>
+        <property name="friendStatus" type="java.lang.Integer">
+            <column name="friend_status">
+                <comment>&#186;&#195;&#211;&#209;&#215;&#180;&#204;&#172;</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

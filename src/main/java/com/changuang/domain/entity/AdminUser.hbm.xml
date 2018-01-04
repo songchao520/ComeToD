@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-12-1 14:27:23 by Hibernate Tools 4.0.0.Final -->
+<hibernate-mapping>
+    <class name="com.changuang.domain.entity.AdminUser" table="admin_user" catalog="tochatting">
+        <id name="recid" type="java.lang.Integer">
+            <column name="recid" />
+            <generator class="identity" />
+        </id>
+        <property name="utypeRecid" type="java.lang.Integer">
+            <column name="utype_recid">
+                <comment>&#211;&#195;&#187;&#167;&#192;&#224;&#208;&#205;&#214;&#247;&#188;&#252;</comment>
+            </column>
+        </property>
+        <property name="adminLoginname" type="string">
+            <column name="admin_loginname" length="100">
+                <comment>&#181;&#199;&#194;&#188;&#195;&#251;</comment>
+            </column>
+        </property>
+        <property name="adminShowname" type="string">
+            <column name="admin_showname" length="20">
+                <comment>&#207;&#212;&#202;&#190;&#195;&#251;</comment>
+            </column>
+        </property>
+        <property name="adminPasswrod" type="string">
+            <column name="admin_passwrod" length="20">
+                <comment>&#181;&#199;&#194;&#188;&#195;&#220;&#194;&#235;</comment>
+            </column>
+        </property>
+        <property name="adminPhone" type="string">
+            <column name="admin_phone" length="20">
+                <comment>&#210;&#198;&#182;&#175;&#202;&#214;&#187;&#250;&#186;&#197;&#194;&#235;</comment>
+            </column>
+        </property>
+        <property name="adminStatus" type="java.lang.Integer">
+            <column name="admin_status">
+                <comment>&#202;&#199;&#183;&#241;&#189;&#251;&#211;&#195;&#163;&#168;0&#183;&#241;1&#202;&#199;&#163;&#169;</comment>
+            </column>
+        </property>
+        <property name="createTime" type="timestamp">
+            <column name="create_time" length="19">
+                <comment>&#180;&#180;&#189;&#168;&#202;&#177;&#188;&#228;</comment>
+            </column>
+        </property>
+        <property name="adminTencent" type="string">
+            <column name="admin_tencent" length="20">
+                <comment>&#204;&#218;&#209;&#182;QQ</comment>
+            </column>
+        </property>
+        <property name="adminUsername" type="string">
+            <column name="admin_username" length="20">
+                <comment>&#208;&#213;&#195;&#251;</comment>
+            </column>
+        </property>
+        <property name="adminId" type="string">
+            <column name="admin_id" length="20">
+                <comment>&#185;&#164;&#186;&#197;</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

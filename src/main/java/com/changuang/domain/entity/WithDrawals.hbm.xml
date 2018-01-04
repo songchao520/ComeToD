@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-12-1 14:27:23 by Hibernate Tools 4.0.0.Final -->
+<hibernate-mapping>
+    <class name="com.changuang.domain.entity.WithDrawals" table="with_drawals" catalog="tochatting">
+        <id name="recid" type="java.lang.Integer">
+            <column name="recid" />
+            <generator class="identity" />
+        </id>
+        <property name="moneyAmount" type="java.lang.Float">
+            <column name="money_amount" precision="12" scale="0">
+                <comment>&#204;&#225;&#207;&#214;&#189;&#240;&#182;&#238;</comment>
+            </column>
+        </property>
+        <property name="anchorRecid" type="java.lang.Integer">
+            <column name="anchor_recid">
+                <comment>&#214;&#247;&#178;&#165;&#214;&#247;&#188;&#252;</comment>
+            </column>
+        </property>
+        <property name="createTime" type="timestamp">
+            <column name="create_time" length="19">
+                <comment>&#180;&#180;&#189;&#168;&#202;&#177;&#188;&#228;</comment>
+            </column>
+        </property>
+        <property name="transfertime" type="timestamp">
+            <column name="transfertime" length="19">
+                <comment>&#215;&#170;&#179;&#246;&#202;&#177;&#188;&#228;</comment>
+            </column>
+        </property>
+        <property name="transferboolean" type="java.lang.Integer">
+            <column name="transferboolean">
+                <comment>&#202;&#199;&#183;&#241;&#215;&#170;&#179;&#246;1&#206;&#170;&#215;&#170;&#179;&#246;0&#206;&#170;&#183;&#241;</comment>
+            </column>
+        </property>
+        <property name="transferpeople" type="java.lang.Integer">
+            <column name="transferpeople">
+                <comment>&#178;&#217;&#215;&#247;&#200;&#203;&#212;&#177;</comment>
+            </column>
+        </property>
+        <property name="alipaynumber" type="string">
+            <column name="alipaynumber" length="50">
+                <comment>&#215;&#170;&#179;&#246;&#213;&#203;&#186;&#197;</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

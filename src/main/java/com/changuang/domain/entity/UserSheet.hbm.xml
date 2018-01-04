@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-12-1 14:27:23 by Hibernate Tools 4.0.0.Final -->
+<hibernate-mapping>
+    <class name="com.changuang.domain.entity.UserSheet" table="user_sheet" catalog="tochatting">
+        <id name="recid" type="java.lang.Integer">
+            <column name="recid" />
+            <generator class="identity" />
+        </id>
+        <property name="utypeRecid" type="java.lang.Integer">
+            <column name="utype_recid">
+                <comment>&#211;&#195;&#187;&#167;&#192;&#224;&#208;&#205;</comment>
+            </column>
+        </property>
+        <property name="userLoginname" type="string">
+            <column name="user_loginname" length="100">
+                <comment>&#211;&#195;&#187;&#167;&#181;&#199;&#194;&#188;&#195;&#251;</comment>
+            </column>
+        </property>
+        <property name="userShowname" type="string">
+            <column name="user_showname" length="60">
+                <comment>&#211;&#195;&#187;&#167;&#207;&#212;&#202;&#190;&#195;&#251;</comment>
+            </column>
+        </property>
+        <property name="userLoginpassword" type="string">
+            <column name="user_loginpassword" length="200">
+                <comment>&#211;&#195;&#187;&#167;&#181;&#199;&#194;&#188;&#195;&#220;&#194;&#235;</comment>
+            </column>
+        </property>
+        <property name="userMobilephone" type="string">
+            <column name="user_mobilephone" length="20">
+                <comment>&#211;&#195;&#187;&#167;&#202;&#214;&#187;&#250;&#186;&#197;&#194;&#235;</comment>
+            </column>
+        </property>
+        <property name="userHeadimg" type="string">
+            <column name="user_headimg">
+                <comment>&#211;&#195;&#187;&#167;&#205;&#183;&#207;&#241;&#194;&#183;&#190;&#182;</comment>
+            </column>
+        </property>
+        <property name="userRemarks" type="string">
+            <column name="user_remarks" length="65535">
+                <comment>&#211;&#195;&#187;&#167;&#177;&#184;&#215;&#162;</comment>
+            </column>
+        </property>
+        <property name="userStatus" type="java.lang.Integer">
+            <column name="user_status">
+                <comment>&#202;&#199;&#183;&#241;&#189;&#251;&#211;&#195;&#163;&#168;0&#206;&#170;&#183;&#241;1&#206;&#170;&#202;&#199;&#163;&#169;</comment>
+            </column>
+        </property>
+        <property name="userCreatetime" type="timestamp">
+            <column name="user_createtime" length="19">
+                <comment>&#211;&#195;&#187;&#167;&#180;&#180;&#189;&#168;&#202;&#177;&#188;&#228;</comment>
+            </column>
+        </property>
+        <property name="userLasttime" type="timestamp">
+            <column name="user_lasttime" length="19">
+                <comment>&#211;&#195;&#187;&#167;&#215;&#238;&#186;&#243;&#181;&#199;&#194;&#188;&#202;&#177;&#188;&#228;</comment>
+            </column>
+        </property>
+        <property name="userLastaddress" type="string">
+            <column name="user_lastaddress" length="100">
+                <comment>&#211;&#195;&#187;&#167;&#215;&#238;&#186;&#243;&#181;&#199;&#194;&#188;&#181;&#216;&#214;&#183;</comment>
+            </column>
+        </property>
+        <property name="userTencent" type="string">
+            <column name="user_tencent" length="20">
+                <comment>&#211;&#195;&#187;&#167;QQ</comment>
+            </column>
+        </property>
+        <property name="userVip" type="java.lang.Integer">
+            <column name="user_vip">
+                <comment>
+                &#211;&#195;&#187;&#167;VIP&#181;&#200;&#188;&#182;&#163;&#168;1&#206;&#170;&#198;&#213;&#205;&#168;&#211;&#195;&#187;&#167;&#163;&#172;1&#180;&#250;&#177;&#237;&#211;&#208;&#179;&#228;&#214;&#181;&#163;&#169;</comment>
+            </column>
+        </property>
+        <property name="anchorStatus" type="java.lang.Integer">
+            <column name="anchor_status">
+                <comment>&#214;&#247;&#178;&#165;&#201;&#243;&#186;&#203;&#215;&#180;&#204;&#172;</comment>
+            </column>
+        </property>
+        <property name="wealthAmount" type="java.lang.Float">
+            <column name="wealth_amount" precision="12" scale="0">
+                <comment>&#178;&#198;&#184;&#187;&#189;&#240;&#182;&#238;</comment>
+            </column>
+        </property>
+        <property name="wealthGrade" type="java.lang.Integer">
+            <column name="wealth_grade">
+                <comment>&#178;&#198;&#184;&#187;&#181;&#200;&#188;&#182;</comment>
+            </column>
+        </property>
+        <property name="userLabel" type="string">
+            <column name="user_label" length="60">
+                <comment>&#211;&#195;&#187;&#167;&#177;&#234;&#199;&#169;</comment>
+            </column>
+        </property>
+        <property name="userSex" type="java.lang.Integer">
+            <column name="user_sex">
+                <comment>&#208;&#212;&#177;&#240;(0&#206;&#170;&#196;&#208;1&#206;&#170;&#197;&#174;)</comment>
+            </column>
+        </property>
+        <property name="isVip" type="java.lang.Integer">
+            <column name="is_vip">
+                <comment>&#202;&#199;&#183;&#241;&#202;&#199;&#176;&#252;&#212;&#194;VIP&#163;&#168;0&#178;&#187;&#202;&#199;1&#202;&#199;&#163;&#169;</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>
