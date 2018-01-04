@@ -35,7 +35,7 @@ public class AnchorDaoImpl implements AnchorDao {
 	UserDao ud ;
 	
 	@Override
-	public Integer getAnchorSheetsCount(String pagesize, String currpage, String cxtj, AnchorSheet anchorSheet) {
+	public Integer getAnchorSheetsCount(String pagesize, String currpage, String cxtj, AnchorSheet anchorSheet,String sortZiduan) {
 		StringBuffer sbf = new StringBuffer();
 		sbf.append("select count(*) from anchor_sheet ash");
 		sbf.append(" where 1=1  and recid!=1000000");
@@ -54,7 +54,12 @@ public class AnchorDaoImpl implements AnchorDao {
 			sbf.append(" or ash.user_occupation like :cxtj ");
 			sbf.append( ")");
 		}
-		sbf.append( " order by ash.recid desc");
+		if(sortZiduan!=null){
+			sbf.append( " order by ash."+sortZiduan+" desc");
+		}else{
+			sbf.append( " order by ash.recid desc");
+		}
+		
 		if(pagesize == null){
 			pagesize = "10";
 		}
@@ -86,7 +91,7 @@ public class AnchorDaoImpl implements AnchorDao {
 	}
 	@SuppressWarnings("rawtypes")
 	@Override
-	public List getAnchorSheets(String pagesize, String currpage, String cxtj, AnchorSheet anchorSheet) {
+	public List getAnchorSheets(String pagesize, String currpage, String cxtj, AnchorSheet anchorSheet,String sortZiduan) {
 		StringBuffer sbf = new StringBuffer();
 		sbf.append("select ash.* from anchor_sheet ash");
 		sbf.append(" where 1=1 and recid!=1000000");
@@ -105,7 +110,12 @@ public class AnchorDaoImpl implements AnchorDao {
 			sbf.append(" or ash.user_occupation like :cxtj ");
 			sbf.append( ")");
 		}
-		sbf.append( " order by ash.recid desc");
+		
+		if(sortZiduan!=null){
+			sbf.append( " order by ash."+sortZiduan+" desc");
+		}else{
+			sbf.append( " order by ash.recid desc");
+		}
 		if(pagesize == null){
 			pagesize = "10";
 		}
@@ -337,7 +347,7 @@ public class AnchorDaoImpl implements AnchorDao {
 			query.setString("chatAbility", anchorSheet.getUserOccupation());					
 		}
 		if(anchorSheet.getIsHot() != null){
-			query.setInteger("isHot", anchorSheet.getRecid());	
+			query.setInteger("isHot", anchorSheet.getIsHot());	
 		}
 		if(anchorSheet.getIsRecommend() != null){
 			query.setInteger("isRecommend", anchorSheet.getIsRecommend());			

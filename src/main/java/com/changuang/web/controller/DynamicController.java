@@ -31,6 +31,31 @@ import net.sf.json.JSONObject;
 public class DynamicController {
 	@Autowired
 	DynamicService dynamicService;
+	
+	/**
+	 * 
+	 * @param pagesize
+	 * @param currpage
+	 * @param cxtj
+	 * @return 
+	 * @desc 获取用户动态总数
+	 */
+	@ResponseBody 
+	@RequestMapping("/getUserDynamicsCount")
+	public JSONObject getUserDynamicsCount(String pagesize, String currpage, String cxtj,UserDynamic userDynamic,Integer thisRecid){
+		Integer lis  = dynamicService.getUserDynamicsCount(pagesize,currpage,cxtj,userDynamic);
+		JSONObject jso = new JSONObject();
+		if(lis != null){
+			jso.put("msg", "获取成功");			
+			jso.put("result", "success");
+			jso.put("data", lis);
+		}else{
+			jso.put("msg", "获取失败");			
+			jso.put("result", "error");
+			jso.put("data", null);
+		}
+		return jso;
+	}
 	/**
 	 * 
 	 * @param pagesize

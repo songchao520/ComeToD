@@ -46,6 +46,24 @@ public class AdminUserController {
 		}
  		return jso;
 	}
+	@ResponseBody 
+	@RequestMapping("/AdminLoginNameVerification")  
+	public JSONObject LoginNameVerification(HttpServletRequest request){
+		
+		JSONObject jso = new JSONObject();		
+		String loginname = request.getParameter("loginname");
+		boolean sl = adminUserService.LoginNameVerification(loginname);
+		if(!sl){
+			jso.put("msg", "用户名重复");			
+			jso.put("result", "error");
+			jso.put("data", sl);
+		}else{
+			jso.put("msg", "用户名不重复");			
+			jso.put("result", "success");
+			jso.put("data", sl);
+		}
+ 		return jso;
+	}
 	/**
 	 * @desc 获取管理用户
 	 * @param usertype
@@ -67,6 +85,7 @@ public class AdminUserController {
 		}
 		return jso;
 	}
+	
 	/**
 	 * @desc 获取管理用户
 	 * @param usertype

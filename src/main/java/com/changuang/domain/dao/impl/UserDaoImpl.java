@@ -510,7 +510,7 @@ public class UserDaoImpl implements UserDao {
 						 AnchorDaoImpl adl = new AnchorDaoImpl();
 						 AnchorSheet as = new AnchorSheet();
 						 as.setRecid(lg);
-						 Object[] objects  = (Object[]) adl.getAnchorSheets(null, null, null, as).get(0);
+						 Object[] objects  = (Object[]) adl.getAnchorSheets(null, null, null, as,null).get(0);
 						 AnchorOnline anchorOnline = new AnchorOnline();
 						 anchorOnline.setAnchorRecid((Integer) objects[0]);
 						 anchorOnline.setAnchorClass((Integer) object[15]);
@@ -551,7 +551,7 @@ public class UserDaoImpl implements UserDao {
 					 AnchorDaoImpl adl = new AnchorDaoImpl();
 					 AnchorSheet as = new AnchorSheet();
 					 as.setRecid(lg);
-					 Object[] objects  = (Object[]) adl.getAnchorSheets(null, null, null, as).get(0);
+					 Object[] objects  = (Object[]) adl.getAnchorSheets(null, null, null, as,null).get(0);
 					 AnchorOnline anchorOnline = new AnchorOnline();
 					 anchorOnline.setAnchorRecid((Integer) objects[0]);
 					 anchorOnline.setAnchorClass((Integer) object[15]);

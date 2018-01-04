@@ -27,17 +27,22 @@ public class DynamicDaoImpl implements DynamicDao {
 	@Autowired
 	SessionFactory  sessionFactory;
 	
-	@SuppressWarnings("rawtypes")
 	@Override
-	public List getUserDynamics(String pagesize, String currpage, String cxtj, UserDynamic userDynamic) {
+	public Integer getUserDynamicsCount(String pagesize, String currpage, String cxtj, UserDynamic userDynamic){
 		StringBuffer sbf = new StringBuffer();
-		sbf.append("select ud.* from user_dynamic as ud");
+		sbf.append("select count(*) from user_dynamic as ud ");
+		sbf.append("left join user_sheet as us on us.recid = ud.user_recid ");
 		sbf.append(" where 1=1");
 		if(userDynamic.getUserRecid() != null){
 			sbf.append(" and ud.user_recid = :userRecid");
 		}
 		if(userDynamic.getRecid() != null){
 			sbf.append(" and ud.recid = :recid");
+		}
+		if(cxtj != null){
+			sbf.append(" and (ud.user_loginname like :cxtj ");
+			sbf.append(" or ud.dynamic_content like :cxtj j");
+			sbf.append( ")");
 		}
 		sbf.append( " order by ud.recid desc");
 		if(pagesize == null){
@@ -57,6 +62,51 @@ public class DynamicDaoImpl implements DynamicDao {
 		}
 		if(userDynamic.getRecid() != null){
 			query.setInteger("recid", userDynamic.getRecid());	
+		}
+		if(cxtj != null){
+			query.setString("cxtj","%"+cxtj+"%");	
+		}
+		return Integer.parseInt(query.list().get(0).toString());
+	}
+	@SuppressWarnings("rawtypes")
+	@Override
+	public List getUserDynamics(String pagesize, String currpage, String cxtj, UserDynamic userDynamic) {
+		StringBuffer sbf = new StringBuffer();
+		sbf.append("select ud.*,us.user_loginname,us.user_showname from user_dynamic as ud ");
+		sbf.append("left join user_sheet as us on us.recid = ud.user_recid ");
+		sbf.append(" where 1=1");
+		if(userDynamic.getUserRecid() != null){
+			sbf.append(" and ud.user_recid = :userRecid");
+		}
+		if(userDynamic.getRecid() != null){
+			sbf.append(" and ud.recid = :recid");
+		}
+		if(cxtj != null){
+			sbf.append(" and (ud.user_loginname like :cxtj ");
+			sbf.append(" or ud.dynamic_content like :cxtj j");
+			sbf.append( ")");
+		}
+		sbf.append( " order by ud.recid desc");
+		if(pagesize == null){
+			pagesize = "10";
+		}
+		if(currpage == null){
+			currpage = "1";
+		}
+		int pagesizes = Integer.parseInt(pagesize);
+		int currpages = Integer.parseInt(currpage);
+		int startint = (currpages-1)*pagesizes;
+		sbf.append(" limit "+startint+","+pagesizes);
+		Session  session=sessionFactory.getCurrentSession();  
+		Query query = session.createSQLQuery (sbf.toString());
+		if(userDynamic.getUserRecid() != null){
+			query.setInteger("userRecid", userDynamic.getUserRecid());	
+		}
+		if(userDynamic.getRecid() != null){
+			query.setInteger("recid", userDynamic.getRecid());	
+		}
+		if(cxtj != null){
+			query.setString("cxtj","%"+cxtj+"%");	
 		}
 		return query.list();
 	}

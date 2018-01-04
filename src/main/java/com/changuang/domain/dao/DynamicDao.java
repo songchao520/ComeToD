@@ -2,7 +2,6 @@ package com.changuang.domain.dao;
 
 import java.io.Serializable;
 import java.util.List;
-
 import com.changuang.domain.entity.DynamicLikes;
 import com.changuang.domain.entity.UserDynamic;
 
@@ -13,6 +12,15 @@ import com.changuang.domain.entity.UserDynamic;
 * @Description 用户动态接口
 */
 public interface DynamicDao {
+	/**
+	 * 
+	 * @param pagesize
+	 * @param currpage
+	 * @param cxtj
+	 * @return 
+	 * @desc 获取动态列表总数
+	 */
+	public Integer getUserDynamicsCount(String pagesize, String currpage, String cxtj, UserDynamic userDynamic);
 	/**
 	 * 
 	 * @param pagesize

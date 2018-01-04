@@ -22,7 +22,7 @@ public interface AnchorService {
 	 * @return 
 	 * @desc 获取主播
 	 */
-	public Integer getAnchorSheetsCount(String pagesize, String currpage, String cxtj, AnchorSheet anchorSheet);
+	public Integer getAnchorSheetsCount(String pagesize, String currpage, String cxtj, AnchorSheet anchorSheet,String sortZiduan);
 	/**
 	 * 
 	 * @param pagesize
@@ -32,7 +32,7 @@ public interface AnchorService {
 	 * @desc 获取主播
 	 */
 	@SuppressWarnings("rawtypes")
-	public List getAnchorSheets(String pagesize, String currpage, String cxtj,AnchorSheet anchorSheet);
+	public List getAnchorSheets(String pagesize, String currpage, String cxtj,AnchorSheet anchorSheet,String sortZiduan);
 	/**
 	 * @desc 添加主播
 	 * @param anchorSheet

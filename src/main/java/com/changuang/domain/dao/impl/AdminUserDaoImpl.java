@@ -49,6 +49,17 @@ public class AdminUserDaoImpl implements AdminUserDao {
 		}else{
 			sbf.append(" and au.utype_recid != 6");
 		}
+		sbf.append( " order by au.recid desc");
+		if(pagesize == null){
+			pagesize = "10";
+		}
+		if(currpage == null){
+			currpage = "1";
+		}
+		int pagesizes = Integer.parseInt(pagesize);
+		int currpages = Integer.parseInt(currpage);
+		int startint = (currpages-1)*pagesizes;
+		sbf.append(" limit "+startint+","+pagesizes);
 		Session  session=sessionFactory.getCurrentSession();  
 		Query query = session.createSQLQuery (sbf.toString());
 		if(adminUser.getUtypeRecid()!=null){
@@ -73,6 +84,17 @@ public class AdminUserDaoImpl implements AdminUserDao {
 		}else{
 			sbf.append(" and au.utype_recid != 6");
 		}
+		sbf.append( " order by au.recid desc");
+		if(pagesize == null){
+			pagesize = "10";
+		}
+		if(currpage == null){
+			currpage = "1";
+		}
+		int pagesizes = Integer.parseInt(pagesize);
+		int currpages = Integer.parseInt(currpage);
+		int startint = (currpages-1)*pagesizes;
+		sbf.append(" limit "+startint+","+pagesizes);
 		Session  session=sessionFactory.getCurrentSession();  
 		Query query = session.createSQLQuery (sbf.toString());
 		if(adminUser.getUtypeRecid()!=null){

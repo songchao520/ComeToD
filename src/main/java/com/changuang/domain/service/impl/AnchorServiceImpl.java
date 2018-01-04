@@ -35,14 +35,14 @@ public class AnchorServiceImpl implements AnchorService {
 	 * @return 
 	 * @desc 获取主播
 	 */
-	public Integer getAnchorSheetsCount(String pagesize, String currpage, String cxtj, AnchorSheet anchorSheet){
-		return anchorDao.getAnchorSheetsCount(pagesize, currpage, cxtj, anchorSheet);
+	public Integer getAnchorSheetsCount(String pagesize, String currpage, String cxtj, AnchorSheet anchorSheet,String sortZiduan){
+		return anchorDao.getAnchorSheetsCount(pagesize, currpage, cxtj, anchorSheet,sortZiduan);
 	}
 	@SuppressWarnings("rawtypes")
 	@Override
-	public List getAnchorSheets(String pagesize, String currpage, String cxtj, AnchorSheet anchorSheet) {
+	public List getAnchorSheets(String pagesize, String currpage, String cxtj, AnchorSheet anchorSheet,String sortZiduan) {
 		ArrayList<HashMap<String, Object>> amp = new ArrayList<>();
-		List alist = anchorDao.getAnchorSheets(pagesize, currpage, cxtj, anchorSheet);
+		List alist = anchorDao.getAnchorSheets(pagesize, currpage, cxtj, anchorSheet,sortZiduan);
 		 if(alist != null && alist.size()>0){
 			 for(int i = 0; i < alist.size();i++){
 				 Object[] object = (Object[])alist.get(i);

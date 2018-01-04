@@ -45,8 +45,8 @@ public class AnchorController {
 	 */
 	@ResponseBody 
 	@RequestMapping("/getAnchorSheetsCount")
-	public JSONObject getAnchorSheetsCount(String pagesize, String currpage, String cxtj,AnchorSheet anchorSheet){
-		Integer lis = anchorService.getAnchorSheetsCount(pagesize,currpage,cxtj,anchorSheet);
+	public JSONObject getAnchorSheetsCount(String pagesize, String currpage, String cxtj,AnchorSheet anchorSheet,String sortZiduan){
+		Integer lis = anchorService.getAnchorSheetsCount(pagesize,currpage,cxtj,anchorSheet,sortZiduan);
 		JSONObject jso = new JSONObject();
 		if(lis != null){
 			jso.put("msg", "获取成功");			
@@ -70,8 +70,8 @@ public class AnchorController {
 	@ResponseBody 
 	@RequestMapping("/getAnchorSheets")
 	@SuppressWarnings("rawtypes")
-	public JSONObject getAnchorSheets(String pagesize, String currpage, String cxtj,AnchorSheet anchorSheet){
-		List lis = anchorService.getAnchorSheets(pagesize,currpage,cxtj,anchorSheet);
+	public JSONObject getAnchorSheets(String pagesize, String currpage, String cxtj,AnchorSheet anchorSheet,String sortZiduan){
+		List lis = anchorService.getAnchorSheets(pagesize,currpage,cxtj,anchorSheet,sortZiduan);
 		JSONObject jso = new JSONObject();
 		if(lis != null){
 			jso.put("msg", "获取成功");			

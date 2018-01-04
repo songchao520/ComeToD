@@ -27,6 +27,10 @@ public class DynamicServiceImpl implements DynamicService {
 	@Autowired
 	DynamicDao dynamicDao;
 	
+	@Override
+	public Integer getUserDynamicsCount(String pagesize, String currpage, String cxtj, UserDynamic userDynamic){
+		return dynamicDao.getUserDynamicsCount(pagesize, currpage, cxtj, userDynamic);
+	}
 	@SuppressWarnings("rawtypes")
 	@Override
 	public List getUserDynamics(String pagesize, String currpage, String cxtj, UserDynamic userDynamic) {
@@ -61,6 +65,8 @@ public class DynamicServiceImpl implements DynamicService {
 				 }
 				 map.put("dynamicImages",imgs );
 				 map.put("dynamicAddress",object[5]!=null ?object[5]:"" );
+				 map.put("userLoginname",object[6]!=null ?object[6]:"" );
+				 map.put("userShowname",object[7]!=null ?object[7]:"" );
 				 amp.add(map);
 			 }
 		 }

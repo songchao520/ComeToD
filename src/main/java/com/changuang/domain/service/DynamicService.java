@@ -19,6 +19,15 @@ public interface DynamicService {
 	 * @param currpage
 	 * @param cxtj
 	 * @return 
+	 * @desc 获取动态列表总数
+	 */
+	public Integer getUserDynamicsCount(String pagesize, String currpage, String cxtj, UserDynamic userDynamic);
+	/**
+	 * 
+	 * @param pagesize
+	 * @param currpage
+	 * @param cxtj
+	 * @return 
 	 * @desc 获取动态列表
 	 */
 	@SuppressWarnings("rawtypes")
