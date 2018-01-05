@@ -57,7 +57,10 @@ public class OperationServiceImpl implements OperationService {
 	public boolean DeleteFollowSheet(FollowSheet followSheet) {
 		return operatioDao.DeleteFollowSheet(followSheet);
 	}
-
+	@Override
+	public Integer getCommentSheetsCount(String pagesize, String currpage, String cxtj,CommentSheet commentSheet){
+		return operatioDao.getCommentSheetsCount(pagesize, currpage, cxtj, commentSheet);
+	}
 	@SuppressWarnings("rawtypes")
 	@Override
 	public List getCommentSheets(String pagesize, String currpage, String cxtj, CommentSheet commentSheet) {
@@ -80,6 +83,7 @@ public class OperationServiceImpl implements OperationService {
 				 map.put("commentContent",object[4]!=null ?object[4]:"" );
 				 map.put("userShowname",object[5]!=null ?object[5]:"" );
 				 map.put("userHeadimg",object[6]!=null ?object[6]:"" );
+				 map.put("userLoginname",object[7]!=null ?object[7]:"" );
 				 amp.add(map);
 			 }
 		 }
@@ -95,7 +99,10 @@ public class OperationServiceImpl implements OperationService {
 	public boolean DeleteCommentSheet(CommentSheet commentSheet) {
 		return operatioDao.DeleteCommentSheet(commentSheet);
 	}
-
+	@Override
+	public Integer getReplySheetsCount(String pagesize, String currpage, String cxtj,ReplySheet replySheet){
+		return  operatioDao.getReplySheetsCount(pagesize, currpage, cxtj, replySheet);
+	}
 	@SuppressWarnings("rawtypes")
 	@Override
 	public List getReplySheets(String pagesize, String currpage, String cxtj, ReplySheet replySheet) {
@@ -120,6 +127,8 @@ public class OperationServiceImpl implements OperationService {
 				 map.put("userHeadimg",object[6]!=null ?object[6]:"" );
 				 map.put("replyUsername",object[7]!=null ?object[7]:"" );
 				 map.put("replyUserrecid",object[8]!=null ?object[8]:"" );
+				 map.put("userLoginname",object[7]!=null ?object[7]:"" );
+				 map.put("replyLoginname",object[7]!=null ?object[7]:"" );
 				 amp.add(map);
 			 }
 		 }

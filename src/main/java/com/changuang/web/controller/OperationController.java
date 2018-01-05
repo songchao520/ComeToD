@@ -99,6 +99,23 @@ public class OperationController {
 		}
 		return jso;
 	}
+	
+	@ResponseBody 
+	@RequestMapping("/getCommentSheetsCount")
+	public JSONObject getCommentSheetsCount(String pagesize, String currpage, String cxtj,CommentSheet commentSheet){
+		Integer lis = operationService.getCommentSheetsCount(pagesize,currpage,cxtj,commentSheet);
+		JSONObject jso = new JSONObject();
+		if(lis != null){
+			jso.put("msg", "获取成功");			
+			jso.put("result", "success");
+			jso.put("data", lis);
+		}else{
+			jso.put("msg", "获取失败");			
+			jso.put("result", "error");
+			jso.put("data", null);
+		}
+		return jso;
+	}
 	/**
 	 * 
 	 * @param pagesize
@@ -170,6 +187,31 @@ public class OperationController {
 			jso.put("msg", "删除成功");			
 			jso.put("result", "error");
 			jso.put("data", "false");
+		}
+		return jso;
+	}
+	
+	/**
+	 * 
+	 * @param pagesize
+	 * @param currpage
+	 * @param cxtj
+	 * @return 
+	 * @desc 获取评论下回复
+	 */
+	@ResponseBody 
+	@RequestMapping("/getReplySheetsCount")
+	public JSONObject getReplySheetsCount(String pagesize, String currpage, String cxtj,ReplySheet replySheet){
+		Integer lis = operationService.getReplySheetsCount(pagesize,currpage,cxtj,replySheet);
+		JSONObject jso = new JSONObject();
+		if(lis != null){
+			jso.put("msg", "获取成功");			
+			jso.put("result", "success");
+			jso.put("data", lis);
+		}else{
+			jso.put("msg", "获取失败");			
+			jso.put("result", "error");
+			jso.put("data", null);
 		}
 		return jso;
 	}

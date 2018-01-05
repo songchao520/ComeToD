@@ -55,6 +55,11 @@ public class OrderDaoImpl implements OrderDao {
 		if(orderSheet.getAnchorRecid() != null){
 			sbf.append(" and os.anchor_recid = :anchorRecid ");
 		}
+		if(cxtj != null){
+			sbf.append(" and (us.user_loginname like :cxtj or us.user_showname like :cxtj or uss.user_loginname like :cxtj");
+			sbf.append(" or uss.user_showname like :cxtj  or oss.status_name like :cxtj ");
+			sbf.append( ")");
+		}
 		sbf.append( " ORDER BY os.recid DESC");
 		if(pagesize == null){
 			pagesize = "10";
@@ -78,6 +83,9 @@ public class OrderDaoImpl implements OrderDao {
 		}
 		if(orderSheet.getRecid() != null){
 			query.setInteger("recid", orderSheet.getRecid());	
+		}
+		if(cxtj != null){
+			query.setString("cxtj","%"+cxtj+"%");	
 		}
 		if(orderSheet.getAnchorRecid() != null){
 			query.setInteger("anchorRecid", orderSheet.getAnchorRecid());	
@@ -111,6 +119,11 @@ public class OrderDaoImpl implements OrderDao {
 		if(orderSheet.getAnchorRecid() != null){
 			sbf.append(" and os.anchor_recid = :anchorRecid ");
 		}
+		if(cxtj != null){
+			sbf.append(" and (us.user_loginname like :cxtj or us.user_showname like :cxtj or uss.user_loginname like :cxtj");
+			sbf.append(" or uss.user_showname like :cxtj  or oss.status_name like :cxtj ");
+			sbf.append( ")");
+		}
 		sbf.append( " ORDER BY os.recid DESC");
 		if(pagesize == null){
 			pagesize = "10";
@@ -134,6 +147,9 @@ public class OrderDaoImpl implements OrderDao {
 		}
 		if(orderSheet.getRecid() != null){
 			query.setInteger("recid", orderSheet.getRecid());	
+		}
+		if(cxtj != null){
+			query.setString("cxtj","%"+cxtj+"%");	
 		}
 		if(orderSheet.getAnchorRecid() != null){
 			query.setInteger("anchorRecid", orderSheet.getAnchorRecid());	
@@ -300,7 +316,7 @@ public class OrderDaoImpl implements OrderDao {
 			query.setInteger("recid", orderproblem.getRecid());
 		}
 		if(cxtj != null){
-			query.setString("cxtj", cxtj);
+			query.setString("cxtj","%"+cxtj+"%");	
 		}
 		return query.list();
 	}

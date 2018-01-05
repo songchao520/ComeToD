@@ -42,6 +42,15 @@ public interface OperationDao {
 	 * @param currpage
 	 * @param cxtj
 	 * @return 
+	 * @desc 获取评论列表总数
+	 */
+	public Integer getCommentSheetsCount(String pagesize, String currpage, String cxtj,CommentSheet commentSheet);
+	/**
+	 * 
+	 * @param pagesize
+	 * @param currpage
+	 * @param cxtj
+	 * @return 
 	 * @desc 获取评论列表
 	 */
 	@SuppressWarnings("rawtypes")
@@ -59,6 +68,7 @@ public interface OperationDao {
 	 * @return
 	 */
 	public boolean DeleteCommentSheet(CommentSheet commentSheet);
+	
 	/**
 	 * 
 	 * @param pagesize
@@ -69,6 +79,7 @@ public interface OperationDao {
 	 */
 	@SuppressWarnings("rawtypes")
 	public List getReplySheets(String pagesize, String currpage, String cxtj,ReplySheet replySheet);
+	public Integer getReplySheetsCount(String pagesize, String currpage, String cxtj,ReplySheet replySheet);
 	/**
 	 * @desc 添加回复内容
 	 * @param ReplySheet

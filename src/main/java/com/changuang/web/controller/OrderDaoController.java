@@ -33,7 +33,7 @@ public class OrderDaoController {
 	 * @desc 获取订单总量
 	 */
 	@ResponseBody 
-	@RequestMapping("/getOrdersCount")
+	@RequestMapping("/getOrderSheetsCount")
 	public JSONObject getOrdersCount(String pagesize, String currpage, String cxtj,OrderSheet orderSheet){
 		Integer lis = orderService.getOrdersCount(pagesize, currpage, cxtj, orderSheet);
 		JSONObject jso = new JSONObject();

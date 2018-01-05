@@ -46,6 +46,7 @@ public interface OperationService {
 	 */
 	@SuppressWarnings("rawtypes")
 	public List getCommentSheets(String pagesize, String currpage, String cxtj,CommentSheet commentSheet);
+	public Integer getCommentSheetsCount(String pagesize, String currpage, String cxtj,CommentSheet commentSheet);
 	/**
 	 * @desc 添加评论
 	 * @param CommentSheet
@@ -69,6 +70,7 @@ public interface OperationService {
 	 */
 	@SuppressWarnings("rawtypes")
 	public List getReplySheets(String pagesize, String currpage, String cxtj,ReplySheet replySheet);
+	public Integer getReplySheetsCount(String pagesize, String currpage, String cxtj,ReplySheet replySheet);
 	/**
 	 * @desc 添加回复内容
 	 * @param ReplySheet

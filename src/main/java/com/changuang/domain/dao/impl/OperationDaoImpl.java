@@ -105,13 +105,11 @@ public class OperationDaoImpl implements OperationDao {
 			 return false;
 		 }
 	}
-
-	@SuppressWarnings("rawtypes")
 	@Override
-	public List getCommentSheets(String pagesize, String currpage, String cxtj, CommentSheet commentSheet) {
+	public Integer getCommentSheetsCount(String pagesize, String currpage, String cxtj,CommentSheet commentSheet){
 		StringBuffer sbf = new StringBuffer();
-		sbf.append(" select cs.recid,cs.user_recid,cs.create_time,cs.dynamic_recid,cs.comment_content, ");
-		sbf.append(" us.user_showname,us.user_headimg from comment_sheet as cs  ");
+		sbf.append(" select count(*) ");
+		sbf.append("  from comment_sheet as cs  ");
 		sbf.append(" left join user_sheet as us on cs.user_recid = us.recid ");
 		sbf.append(" where cs.recid != 1000000 ");
 		if(commentSheet.getUserRecid() != null){
@@ -122,6 +120,11 @@ public class OperationDaoImpl implements OperationDao {
 		}
 		if(commentSheet.getDynamicRecid() != null){
 			sbf.append(" and cs.dynamic_recid = :dynamicRecid ");
+		}
+		if(cxtj != null){
+			sbf.append(" and (us.user_loginname like :cxtj ");
+			sbf.append(" or cs.comment_content like :cxtj j");
+			sbf.append( ")");
 		}
 		sbf.append( " ORDER BY cs.recid DESC");
 		if(pagesize == null){
@@ -141,6 +144,59 @@ public class OperationDaoImpl implements OperationDao {
 		}
 		if(commentSheet.getRecid() != null){
 			query.setInteger("recid", commentSheet.getRecid());	
+		}
+		if(cxtj != null){
+			query.setString("cxtj","%"+cxtj+"%");	
+		}
+		if(commentSheet.getDynamicRecid() != null){
+			query.setInteger("dynamicRecid", commentSheet.getDynamicRecid());	
+		}
+		return Integer.parseInt(query.list().get(0).toString());
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Override
+	public List getCommentSheets(String pagesize, String currpage, String cxtj, CommentSheet commentSheet) {
+		StringBuffer sbf = new StringBuffer();
+		sbf.append(" select cs.recid,cs.user_recid,cs.create_time,cs.dynamic_recid,cs.comment_content, ");
+		sbf.append(" us.user_showname,us.user_headimg,us.user_loginname from comment_sheet as cs  ");
+		sbf.append(" left join user_sheet as us on cs.user_recid = us.recid ");
+		sbf.append(" where cs.recid != 1000000 ");
+		if(commentSheet.getUserRecid() != null){
+			sbf.append(" and cs.user_recid = :userRecid ");
+		}
+		if(commentSheet.getRecid() != null){
+			sbf.append(" and cs.recid = :recid ");
+		}
+		if(commentSheet.getDynamicRecid() != null){
+			sbf.append(" and cs.dynamic_recid = :dynamicRecid ");
+		}
+		if(cxtj != null){
+			sbf.append(" and (us.user_loginname like :cxtj ");
+			sbf.append(" or cs.comment_content like :cxtj j");
+			sbf.append( ")");
+		}
+		sbf.append( " ORDER BY cs.recid DESC");
+		if(pagesize == null){
+			pagesize = "10";
+		}
+		if(currpage == null){
+			currpage = "1";
+		}
+		int pagesizes = Integer.parseInt(pagesize);
+		int currpages = Integer.parseInt(currpage);
+		int startint = (currpages-1)*pagesizes;
+		sbf.append(" limit "+startint+","+pagesizes);
+		Session  session=sessionFactory.getCurrentSession();  
+		Query query = session.createSQLQuery (sbf.toString());
+		if(commentSheet.getUserRecid() != null){
+			query.setInteger("userRecid", commentSheet.getUserRecid());	
+		}
+		if(commentSheet.getRecid() != null){
+			query.setInteger("recid", commentSheet.getRecid());	
+		}
+		if(cxtj != null){
+			query.setString("cxtj","%"+cxtj+"%");	
 		}
 		if(commentSheet.getDynamicRecid() != null){
 			query.setInteger("dynamicRecid", commentSheet.getDynamicRecid());	
@@ -184,13 +240,10 @@ public class OperationDaoImpl implements OperationDao {
 			 return false;
 		 }
 	}
-
-	@SuppressWarnings("rawtypes")
 	@Override
-	public List getReplySheets(String pagesize, String currpage, String cxtj, ReplySheet replySheet) {
+	public Integer getReplySheetsCount(String pagesize, String currpage, String cxtj,ReplySheet replySheet){
 		StringBuffer sbf = new StringBuffer();
-		sbf.append(" select rs.recid,rs.comment_recid,rs.create_time,rs.user_recid,rs.reply_content, ");
-		sbf.append(" us.user_showname,us.user_headimg,uss.user_showname as reusername,rs.reply_userrecid  ");
+		sbf.append(" select count(*) ");
 		sbf.append("  from reply_sheet as rs ");
 		sbf.append(" left join user_sheet as us on rs.user_recid = us.recid ");
 		sbf.append(" left join user_sheet as uss on rs.reply_userrecid = uss.recid ");
@@ -206,6 +259,11 @@ public class OperationDaoImpl implements OperationDao {
 		}
 		if(replySheet.getReplyUserrecid() != null){
 			sbf.append(" and rs.reply_userrecid = :replyUserrecid ");
+		}
+		if(cxtj != null){
+			sbf.append(" and (us.user_loginname like :cxtj ");
+			sbf.append(" or rs.reply_content like :cxtj j");
+			sbf.append( ")");
 		}
 		sbf.append( " ORDER BY rs.recid DESC");
 		if(pagesize == null){
@@ -225,6 +283,67 @@ public class OperationDaoImpl implements OperationDao {
 		}
 		if(replySheet.getRecid() != null){
 			query.setInteger("recid", replySheet.getRecid());	
+		}
+		if(cxtj != null){
+			query.setString("cxtj","%"+cxtj+"%");	
+		}
+		if(replySheet.getCommentRecid() != null){
+			query.setInteger("commentRecid", replySheet.getCommentRecid());	
+		}
+		if(replySheet.getReplyUserrecid() != null){
+			query.setInteger("replyUserrecid", replySheet.getReplyUserrecid());	
+		}
+		return Integer.parseInt(query.list().get(0).toString());
+	}
+	@SuppressWarnings("rawtypes")
+	@Override
+	public List getReplySheets(String pagesize, String currpage, String cxtj, ReplySheet replySheet) {
+		StringBuffer sbf = new StringBuffer();
+		sbf.append(" select rs.recid,rs.comment_recid,rs.create_time,rs.user_recid,rs.reply_content, ");
+		sbf.append(" us.user_showname,us.user_headimg,uss.user_showname as reusername,rs.reply_userrecid,  ");
+		sbf.append(" us.user_loginname,uss.user_loginname as reloginname ");
+		sbf.append("  from reply_sheet as rs ");
+		sbf.append(" left join user_sheet as us on rs.user_recid = us.recid ");
+		sbf.append(" left join user_sheet as uss on rs.reply_userrecid = uss.recid ");
+		sbf.append(" where rs.recid != 1000000 ");
+		if(replySheet.getUserRecid() != null){
+			sbf.append(" and rs.user_recid = :userRecid ");
+		}
+		if(replySheet.getRecid() != null){
+			sbf.append(" and rs.recid = :recid ");
+		}
+		if(replySheet.getCommentRecid() != null){
+			sbf.append(" and rs.comment_recid = :commentRecid ");
+		}
+		if(replySheet.getReplyUserrecid() != null){
+			sbf.append(" and rs.reply_userrecid = :replyUserrecid ");
+		}
+		if(cxtj != null){
+			sbf.append(" and (us.user_loginname like :cxtj ");
+			sbf.append(" or rs.reply_content like :cxtj j");
+			sbf.append( ")");
+		}
+		sbf.append( " ORDER BY rs.recid DESC");
+		if(pagesize == null){
+			pagesize = "10";
+		}
+		if(currpage == null){
+			currpage = "1";
+		}
+		int pagesizes = Integer.parseInt(pagesize);
+		int currpages = Integer.parseInt(currpage);
+		int startint = (currpages-1)*pagesizes;
+		sbf.append(" limit "+startint+","+pagesizes);
+		Session  session=sessionFactory.getCurrentSession();  
+		Query query = session.createSQLQuery (sbf.toString());
+		if(replySheet.getUserRecid() != null){
+			query.setInteger("userRecid", replySheet.getUserRecid());	
+		}
+		if(replySheet.getRecid() != null){
+			query.setInteger("recid", replySheet.getRecid());	
+		}
+		if(cxtj != null){
+			query.setString("cxtj","%"+cxtj+"%");	
 		}
 		if(replySheet.getCommentRecid() != null){
 			query.setInteger("commentRecid", replySheet.getCommentRecid());	
