@@ -84,6 +84,68 @@ public class OperationServiceImpl implements OperationService {
 				 map.put("userShowname",object[5]!=null ?object[5]:"" );
 				 map.put("userHeadimg",object[6]!=null ?object[6]:"" );
 				 map.put("userLoginname",object[7]!=null ?object[7]:"" );
+				 map.put("userSex",object[8]!=null ?object[8]:"" );
+				 map.put("userWealthGrade",object[9]!=null ?object[9]:"" );
+				 amp.add(map);
+			 }
+		 }
+		return amp;
+	}
+	@SuppressWarnings("rawtypes")
+	@Override
+	public List getCommentSheetsAndReply(String pagesize, String currpage, String cxtj, CommentSheet commentSheet) {
+		ArrayList<HashMap<String, Object>> amp = new ArrayList<>();
+		List alist = operatioDao.getCommentSheets(pagesize, currpage, cxtj, commentSheet);
+		 if(alist != null && alist.size()>0){
+			 for(int i = 0; i < alist.size();i++){
+				 Object[] object = (Object[])alist.get(i);
+				 HashMap< String, Object> map = new HashMap<>();
+				 map.put("recid",object[0] );
+				 map.put("userRecid",object[1]!=null ?object[1]:"" );
+				 if(object[2]!=null){
+					 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+					 String createtime = formatter.format(object[2]);
+					 map.put("createTime" ,createtime );
+				 }else{
+					 map.put("createTime" ,"" );
+				 }
+				 map.put("dynamicRecid",object[3]!=null ?object[3]:"" );
+				 map.put("commentContent",object[4]!=null ?object[4]:"" );
+				 map.put("userShowname",object[5]!=null ?object[5]:"" );
+				 map.put("userHeadimg",object[6]!=null ?object[6]:"" );
+				 map.put("userLoginname",object[7]!=null ?object[7]:"" );
+				 map.put("userSex",object[8]!=null ?object[8]:"" );
+				 map.put("userWealthGrade",object[9]!=null ?object[9]:"" );
+				 ReplySheet replySheet = new ReplySheet();
+				 replySheet.setCommentRecid((Integer) object[0]);
+				 ArrayList<HashMap<String, Object>> amps = new ArrayList<>();
+				 List alists = operatioDao.getReplySheets(pagesize, currpage, cxtj, replySheet);
+				 if(alists != null && alists.size()>0){
+					 for(int j = 0; j < alists.size();j++){
+						 Object[] objects = (Object[])alists.get(j);
+						 HashMap< String, Object> maps = new HashMap<>();
+						 maps.put("recid",objects[0] );
+						 maps.put("commentRecid",objects[1]!=null ?objects[1]:"" );
+						 if(objects[2]!=null){
+							 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+							 String createtime = formatter.format(objects[2]);
+							 maps.put("createTime" ,createtime );
+						 }else{
+							 maps.put("createTime" ,"" );
+						 }
+						 maps.put("userRecid",objects[3]!=null ?objects[3]:"" );
+						 maps.put("replyContent",objects[4]!=null ?objects[4]:"" );
+						 maps.put("userShowname",objects[5]!=null ?objects[5]:"" );
+						 maps.put("userHeadimg",objects[6]!=null ?objects[6]:"" );
+						 maps.put("replyUsername",objects[7]!=null ?objects[7]:"" );
+						 maps.put("replyUserrecid",objects[8]!=null ?objects[8]:"" );
+						 maps.put("userLoginname",objects[7]!=null ?objects[7]:"" );
+						 maps.put("replyLoginname",objects[7]!=null ?objects[7]:"" );
+						 amps.add(maps);
+					 }
+					
+				 } 
+				 map.put("replys", amps);
 				 amp.add(map);
 			 }
 		 }

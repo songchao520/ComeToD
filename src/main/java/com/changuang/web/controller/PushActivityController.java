@@ -47,6 +47,27 @@ public class PushActivityController {
  		return jso;
 	}
 	/**
+	 * @desc 获取活动总数
+	 * @param usertype
+	 * @return 活动集合
+	 */
+	@ResponseBody 
+	@RequestMapping("/getPushActivitysCount")  
+	public JSONObject getPushActivitysCount(String pagesize, String currpage, String cxtj, PushActivity PushActivity){
+		Integer lis = pushActivityService.getPushActivitysCount(pagesize,currpage,cxtj,PushActivity);
+		JSONObject jso = new JSONObject();
+		if(lis != null){
+			jso.put("msg", "获取成功");			
+			jso.put("result", "success");
+			jso.put("data", lis);
+		}else{
+			jso.put("msg", "获取失败");			
+			jso.put("result", "error");
+			jso.put("data", null);
+		}
+		return jso;
+	}
+	/**
 	 * @desc 获取活动
 	 * @param usertype
 	 * @return 活动集合

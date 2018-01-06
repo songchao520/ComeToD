@@ -1,7 +1,9 @@
 package com.changuang.web.controller;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,10 +17,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.changuang.domain.entity.PushActivity;
 import com.changuang.domain.entity.UserSheet;
+import com.changuang.domain.service.PushActivityService;
 import com.changuang.domain.service.UserService;
 
 import net.sf.json.JSONObject;
+import sun.misc.BASE64Decoder;
 
 
 /**
@@ -27,10 +32,13 @@ import net.sf.json.JSONObject;
 * @ClassName 类名称
 * @Description 类描述
 */
+@SuppressWarnings("restriction")
 @Controller
 public class UploadController {
 	@Autowired  
 	UserService userService; 
+	@Autowired
+	PushActivityService pushActivityService;
 	
 	@SuppressWarnings("unchecked")
 	@ResponseBody 
@@ -105,6 +113,77 @@ public class UploadController {
 		jso.put("data",maps);
 		jso.put("result","success");
 		return jso;
+		
+	}
+	/**
+	 * @desc 64位上传照片
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody 
+	@RequestMapping("/UploadImages")  
+	public JSONObject UploadImages(HttpServletRequest request){
+		JSONObject jso = new JSONObject();
+		String images = request.getParameter("images");
+		String index = request.getParameter("index");
+		String recid = request.getParameter("recid");
+		//System.out.println(images);
+		String getpath = "/WEB-INF/resources/images";
+		if(index.equals("activityImg")){
+			getpath = getpath+"/activity";
+		}
+		String realPath = request.getSession().getServletContext()
+				.getRealPath(getpath);
+		
+		System.out.println(realPath);
+		String jpgname = System.currentTimeMillis()+".jpg";
+		System.out.println(jpgname);
+		boolean flag = generateImage(images,realPath+"\\"+jpgname);
+		
+		if(index.equals("activityImg")){
+			PushActivity pay = new PushActivity();
+			pay.setRecid(Integer.parseInt(recid));
+			pay.setRelevantImg("images/activity/"+jpgname);
+			flag = pushActivityService.UpdatePushActivity(pay);
+		}
+		if(flag){
+			
+			jso.put("msg", "修改成功");
+			jso.put("data",jpgname);
+			jso.put("result","success");
+		}else{
+			jso.put("msg", "修改成功");
+			jso.put("data",jpgname);
+			jso.put("result","error");
+		}
+		return jso;
+	}
+	/***
+	 * 上传照片方法
+	 * @param imgStr
+	 * @param path
+	 * @return
+	 */
+	public static boolean generateImage(String imgStr, String path) {
+		if(imgStr == null){
+			return false;
+		}
+		BASE64Decoder decoder = new BASE64Decoder();
+		try {
+			byte[] b = decoder.decodeBuffer(imgStr);
+			for(int i=0;i<b.length;i++){
+				if(b[i]<0){
+					b[i]+=256;
+				}
+			}
+			OutputStream out = new FileOutputStream(path);
+			out.write(b);
+			out.flush();
+			out.close();
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 		
 	}
 }

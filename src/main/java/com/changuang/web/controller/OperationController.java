@@ -127,8 +127,14 @@ public class OperationController {
 	@ResponseBody 
 	@RequestMapping("/getCommentSheets")
 	@SuppressWarnings("rawtypes")
-	public JSONObject getCommentSheets(String pagesize, String currpage, String cxtj,CommentSheet commentSheet){
-		List lis = operationService.getCommentSheets(pagesize,currpage,cxtj,commentSheet);
+	public JSONObject getCommentSheets(String pagesize, String currpage, String cxtj,CommentSheet commentSheet,String getReply){
+		List  lis = null;
+		if(getReply!=null && getReply.equals("replytrue")){
+			lis=operationService.getCommentSheetsAndReply(pagesize,currpage,cxtj,commentSheet);
+		}else{
+			lis = operationService.getCommentSheets(pagesize,currpage,cxtj,commentSheet);
+		}
+		
 		JSONObject jso = new JSONObject();
 		if(lis != null){
 			jso.put("msg", "获取成功");			

@@ -46,6 +46,9 @@ public interface OperationService {
 	 */
 	@SuppressWarnings("rawtypes")
 	public List getCommentSheets(String pagesize, String currpage, String cxtj,CommentSheet commentSheet);
+	
+	@SuppressWarnings("rawtypes")
+	public List getCommentSheetsAndReply(String pagesize, String currpage, String cxtj, CommentSheet commentSheet);
 	public Integer getCommentSheetsCount(String pagesize, String currpage, String cxtj,CommentSheet commentSheet);
 	/**
 	 * @desc 添加评论

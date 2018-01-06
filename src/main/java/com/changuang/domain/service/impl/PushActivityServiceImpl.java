@@ -29,10 +29,13 @@ public class PushActivityServiceImpl implements PushActivityService {
 	
 	@Override
 	public Serializable savePushActivity(PushActivity pushActivity) {
-		// TODO Auto-generated method stub
-		return null;
+		return pushActivityDao.savePushActivity(pushActivity);
 	}
 
+	@Override
+	public Integer getPushActivitysCount(String pagesize, String currpage, String cxtj, PushActivity pushActivity) {
+		return pushActivityDao.getPushActivitysCount(pagesize,currpage,cxtj,pushActivity);
+	}
 	@SuppressWarnings("rawtypes")
 	@Override
 	public List getPushActivitys(String pagesize, String currpage, String cxtj, PushActivity pushActivity) {
@@ -60,9 +63,21 @@ public class PushActivityServiceImpl implements PushActivityService {
 				 
 				 map.put("adminRecid", object[8]!=null ?object[8]:"");
 				 map.put("userType", object[9]!=null ?object[9]:"");
-				 map.put("userType", object[10]!=null ?object[10]:"");
-				 map.put("userType", object[11]!=null ?object[11]:"");
-				 map.put("userType", object[12]!=null ?object[12]:"");
+				 if(object[10]!=null ){
+					 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+					 String startTime = formatter.format(object[10]);
+					 map.put("startTime", startTime);
+				 }else{
+					 map.put("startTime", "");
+				 }
+				 if(object[11]!=null ){
+					 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+					 String endTime = formatter.format(object[11]);
+					 map.put("endTime", endTime);
+				 }else{
+					 map.put("endTime", "");
+				 }
+				 map.put("isShow", object[12]!=null ?object[12]:"");
 				 amp.add(map);
 			 }
 		 }
@@ -71,8 +86,7 @@ public class PushActivityServiceImpl implements PushActivityService {
 
 	@Override
 	public boolean UpdatePushActivity(PushActivity pushActivity) {
-		// TODO Auto-generated method stub
-		return false;
+		return pushActivityDao.UpdatePushActivity(pushActivity);
 	}
 
 }

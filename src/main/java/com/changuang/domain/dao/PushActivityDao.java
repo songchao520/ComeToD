@@ -17,6 +17,15 @@ public interface PushActivityDao {
 	 * @return
 	 */
 	public Serializable savePushActivity(PushActivity pushActivity);
+	/**
+	 * @desc 获取活动数据总和
+	 * @param pagesize
+	 * @param currpage
+	 * @param cxtj
+	 * @param PushActivity
+	 * @return
+	 */
+	public Integer getPushActivitysCount(String pagesize, String currpage, String cxtj,PushActivity pushActivity);
 	
 	/**
 	 * @desc 获取活动数据

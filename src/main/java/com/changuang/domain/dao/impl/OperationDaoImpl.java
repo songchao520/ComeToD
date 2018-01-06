@@ -1,6 +1,7 @@
 package com.changuang.domain.dao.impl;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -159,7 +160,7 @@ public class OperationDaoImpl implements OperationDao {
 	public List getCommentSheets(String pagesize, String currpage, String cxtj, CommentSheet commentSheet) {
 		StringBuffer sbf = new StringBuffer();
 		sbf.append(" select cs.recid,cs.user_recid,cs.create_time,cs.dynamic_recid,cs.comment_content, ");
-		sbf.append(" us.user_showname,us.user_headimg,us.user_loginname from comment_sheet as cs  ");
+		sbf.append(" us.user_showname,us.user_headimg,us.user_loginname,us.user_sex,us.wealth_grade from comment_sheet as cs  ");
 		sbf.append(" left join user_sheet as us on cs.user_recid = us.recid ");
 		sbf.append(" where cs.recid != 1000000 ");
 		if(commentSheet.getUserRecid() != null){
@@ -206,6 +207,7 @@ public class OperationDaoImpl implements OperationDao {
 
 	@Override
 	public Serializable saveCommentSheet(CommentSheet commentSheet) {
+		commentSheet.setCreateTime(new Date());
 		Session  session=sessionFactory.getCurrentSession();  
 	    return   session.save(commentSheet);  
 	}
@@ -356,6 +358,7 @@ public class OperationDaoImpl implements OperationDao {
 
 	@Override
 	public Serializable saveReplySheet(ReplySheet replySheet) {
+		replySheet.setCreateTime(new Date());
 		Session  session=sessionFactory.getCurrentSession();  
 	    return   session.save(replySheet);  
 	}
