@@ -20,6 +20,15 @@ public interface OperationService {
 	 * @param currpage
 	 * @param cxtj
 	 * @return 
+	 * @desc 获取用户关注总数
+	 */
+	public Integer getFollowSheetsCount(String pagesize, String currpage, String cxtj,FollowSheet followSheet);
+	/**
+	 * 
+	 * @param pagesize
+	 * @param currpage
+	 * @param cxtj
+	 * @return 
 	 * @desc 获取用户关注列表
 	 */
 	@SuppressWarnings("rawtypes")

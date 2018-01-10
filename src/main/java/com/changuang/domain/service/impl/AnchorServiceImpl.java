@@ -180,6 +180,12 @@ public class AnchorServiceImpl implements AnchorService {
 				 map.put("userShowName",object[8]!=null ?object[8]:"" );
 				 map.put("anchorIsFree",object[9]!=null ?object[9]:"" );
 				 map.put("userHeadimg",object[10]!=null ?object[10]:"" );
+				 map.put("LabelOne",object[11]!=null ?object[11]:"" );
+				 map.put("LabelTwo",object[12]!=null ?object[12]:"" );
+				 map.put("LabelThere",object[13]!=null ?object[13]:"" );
+				 map.put("smallPhoto",object[14]!=null ?object[14]:"" );
+				 map.put("bigPhoto",object[15]!=null ?object[15]:"" );
+				 map.put("userSex",object[16]!=null ?object[16]:"" );
 				 amp.add(map);
 			 }
 		 }

@@ -27,7 +27,18 @@ import com.changuang.domain.service.OperationService;
 public class OperationServiceImpl implements OperationService {
 	@Autowired
 	OperationDao operatioDao;
-
+	/**
+	 * 
+	 * @param pagesize
+	 * @param currpage
+	 * @param cxtj
+	 * @return 
+	 * @desc 获取用户关注总数
+	 */
+	@Override
+	public Integer getFollowSheetsCount(String pagesize, String currpage, String cxtj,FollowSheet followSheet){
+		return operatioDao.getFollowSheetsCount(pagesize, currpage, cxtj, followSheet);
+	}
 	@SuppressWarnings("rawtypes")
 	@Override
 	public List getFollowSheets(String pagesize, String currpage, String cxtj, FollowSheet followSheet) {
@@ -42,6 +53,7 @@ public class OperationServiceImpl implements OperationService {
 				 map.put("followUserrecid",object[2]!=null ?object[2]:"" );
 				 map.put("userShowname",object[3]!=null ?object[3]:"" );
 				 map.put("userHeadimg",object[4]!=null ?object[4]:"" );
+				 map.put("userSex",object[5]!=null ?object[5]:"" );
 				 amp.add(map);
 			 }
 		 }

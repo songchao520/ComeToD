@@ -27,13 +27,52 @@ import com.changuang.domain.entity.ReplySheet;
 public class OperationDaoImpl implements OperationDao {
 	@Autowired
 	SessionFactory  sessionFactory;
-
+	@Override
+	public Integer getFollowSheetsCount(String pagesize, String currpage, String cxtj,FollowSheet followSheet){
+		StringBuffer sbf = new StringBuffer();
+		sbf.append(" select count(*)");
+		sbf.append("  from follow_sheet as fs ");
+		sbf.append(" LEFT JOIN user_sheet as us on fs.anchor_recid = us.recid ");
+		sbf.append(" where fs.recid != 1000000 ");
+		if(followSheet.getUserRecid() != null){
+			sbf.append(" and fs.user_recid = :userRecid ");
+		}
+		if(followSheet.getRecid() != null){
+			sbf.append(" and fs.recid = :recid ");
+		}
+		if(followSheet.getAnchorRecid() != null){
+			sbf.append(" and fs.anchor_recid = :anchorRecid ");
+		}
+		sbf.append( " ORDER BY fs.recid DESC");
+		if(pagesize == null){
+			pagesize = "10";
+		}
+		if(currpage == null){
+			currpage = "1";
+		}
+		int pagesizes = Integer.parseInt(pagesize);
+		int currpages = Integer.parseInt(currpage);
+		int startint = (currpages-1)*pagesizes;
+		sbf.append(" limit "+startint+","+pagesizes);
+		Session  session=sessionFactory.getCurrentSession();  
+		Query query = session.createSQLQuery (sbf.toString());
+		if(followSheet.getUserRecid() != null){
+			query.setInteger("userRecid", followSheet.getUserRecid());	
+		}
+		if(followSheet.getRecid() != null){
+			query.setInteger("recid", followSheet.getRecid());	
+		}
+		if(followSheet.getAnchorRecid() != null){
+			query.setInteger("anchorRecid", followSheet.getAnchorRecid());	
+		}
+		return Integer.parseInt(query.list().get(0).toString());
+	}
 	@SuppressWarnings("rawtypes")
 	@Override
 	public List getFollowSheets(String pagesize, String currpage, String cxtj, FollowSheet followSheet) {
 		StringBuffer sbf = new StringBuffer();
 		sbf.append(" select fs.recid,fs.user_recid as urecid,fs.anchor_recid as furecid, ");
-		sbf.append(" us.user_showname,us.user_headimg from follow_sheet as fs ");
+		sbf.append(" us.user_showname,us.user_headimg,us.user_sex from follow_sheet as fs ");
 		sbf.append(" LEFT JOIN user_sheet as us on fs.anchor_recid = us.recid ");
 		sbf.append(" where fs.recid != 1000000 ");
 		if(followSheet.getUserRecid() != null){
@@ -267,7 +306,7 @@ public class OperationDaoImpl implements OperationDao {
 			sbf.append(" or rs.reply_content like :cxtj j");
 			sbf.append( ")");
 		}
-		sbf.append( " ORDER BY rs.recid DESC");
+		sbf.append( " ORDER BY rs.recid");
 		if(pagesize == null){
 			pagesize = "10";
 		}
@@ -325,7 +364,7 @@ public class OperationDaoImpl implements OperationDao {
 			sbf.append(" or rs.reply_content like :cxtj j");
 			sbf.append( ")");
 		}
-		sbf.append( " ORDER BY rs.recid DESC");
+		sbf.append( " ORDER BY rs.recid");
 		if(pagesize == null){
 			pagesize = "10";
 		}

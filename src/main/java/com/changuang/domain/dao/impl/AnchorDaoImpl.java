@@ -654,7 +654,9 @@ public class AnchorDaoImpl implements AnchorDao {
 		StringBuffer sbf = new StringBuffer();
 		sbf.append(" select aon.recid,us.recid as userr,ash.recid as aonrecid,aon.anchor_label as aonlb,ash.voice_chat as ashvc,");
 		sbf.append(" ash.video_chat as ashvd,ash.anchor_class as ashac,aon.create_time as aonct,us.user_showname,");
-		sbf.append(" aon.is_free as ashif,us.user_headimg from anchor_online as aon LEFT JOIN anchor_sheet as ash on aon.anchor_recid = ash.recid");
+		sbf.append(" aon.is_free as ashif,us.user_headimg,us.user_label,us.user_labelt,us.user_labels, ");
+		sbf.append(" ash.small_photo,ash.my_photo,us.user_sex");
+		sbf.append(" from anchor_online as aon LEFT JOIN anchor_sheet as ash on aon.anchor_recid = ash.recid");
 		sbf.append(" LEFT JOIN user_sheet as us on us.recid = ash.user_recid");
 		
 		sbf.append(" where 1=1");
