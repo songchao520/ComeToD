@@ -18,9 +18,13 @@ import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.aliyuncs.exceptions.ClientException;
 import com.changuang.domain.entity.UserSheet;
 import com.changuang.domain.entity.UserType;
+import com.changuang.domain.huanxin.api.IMUserAPI;
+import com.changuang.domain.huanxin.api.impl.EasemobIMUsers;
 import com.changuang.domain.service.UserService;
 import com.changuang.domain.util.SmsSends;
 
+import io.swagger.client.model.RegisterUsers;
+import io.swagger.client.model.User;
 import net.sf.json.JSONObject;
 
 /**
@@ -31,6 +35,7 @@ import net.sf.json.JSONObject;
 */
 @Controller
 public class UserController {
+	public static  IMUserAPI easemobIMUsers = new EasemobIMUsers();
 	public static Map<String,String> maps = new HashMap<String,String>();
 	@Autowired  
 	UserService userService; 
@@ -186,9 +191,20 @@ public class UserController {
 			}else{
 				Serializable sl = userService.saveUserSheet(userSheet);
 				if(sl != null){
-					jso.put("msg", "注册成功");			
-					jso.put("result", "success");
-					jso.put("data", sl);
+					RegisterUsers users = new RegisterUsers();
+					User user = new User().username(userSheet.getUserLoginname()).password("123");
+					users.add(user);
+					Object result = easemobIMUsers.createNewIMUserSingle(users);
+					if(result!=null){
+						jso.put("msg", "注册成功");			
+						jso.put("result", "success");
+						jso.put("data", sl);
+					}else{
+						jso.put("msg", "注册失败，请联系管理员");			
+						jso.put("result", "error");
+						jso.put("data", sl);
+					}
+					
 				}else{
 					jso.put("msg", "注册失败，请联系管理员");			
 					jso.put("result", "error");
@@ -329,11 +345,26 @@ public class UserController {
 			Integer sexs = Integer.parseInt(sex);
 			userSheet.setUserSex(sexs);
 			Serializable sl = userService.saveUserSheet(userSheet);
+			
 			if(sl== null){
 				jso.put("msg", "系统保存第三方用户失败，请联系管理员");			
 				jso.put("result", "error");
 				jso.put("data", sl);
 				return jso;
+			}else{
+				RegisterUsers users = new RegisterUsers();
+				User user = new User().username(userSheet.getUserLoginname()).password("123");
+				users.add(user);
+				Object result = easemobIMUsers.createNewIMUserSingle(users);
+				if(result!=null){
+					jso.put("msg", "注册成功");			
+					jso.put("result", "success");
+					jso.put("data", sl);
+				}else{
+					jso.put("msg", "注册失败，请联系管理员");			
+					jso.put("result", "error");
+					jso.put("data", sl);
+				}
 			}
 		}
 		

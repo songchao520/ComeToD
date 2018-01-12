@@ -178,7 +178,17 @@
     <artifactId>httpclient</artifactId>  
     <version>4.5.3</version>  
 </dependency>
-        
+         <!-- jhuanxin log -->  
+         <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.easemob</groupId>
+            <artifactId>rest-java-sdk</artifactId>
+            <version>1.0.5</version>
+        </dependency>
       <!-- json-lib -->  
 <dependency>    
     <groupId>net.sf.json-lib</groupId>    
