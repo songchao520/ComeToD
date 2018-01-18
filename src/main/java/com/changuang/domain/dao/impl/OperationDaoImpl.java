@@ -111,6 +111,7 @@ public class OperationDaoImpl implements OperationDao {
 
 	@Override
 	public Serializable saveFollowSheet(FollowSheet followSheet) {
+		followSheet.setCreateTime(new Date());
 		Session  session=sessionFactory.getCurrentSession();  
 	    return   session.save(followSheet);  
 	}

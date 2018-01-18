@@ -189,10 +189,11 @@ public class UserController {
 				jso.put("result", "error");
 				jso.put("data", "");
 			}else{
+				userSheet.setUserHeadimg("images/headImg/ls.jpg");
 				Serializable sl = userService.saveUserSheet(userSheet);
 				if(sl != null){
 					RegisterUsers users = new RegisterUsers();
-					User user = new User().username(userSheet.getUserLoginname()).password("123");
+					User user = new User().username(sl.toString()).password("123");
 					users.add(user);
 					Object result = easemobIMUsers.createNewIMUserSingle(users);
 					if(result!=null){
@@ -353,7 +354,7 @@ public class UserController {
 				return jso;
 			}else{
 				RegisterUsers users = new RegisterUsers();
-				User user = new User().username(userSheet.getUserLoginname()).password("123");
+				User user = new User().username(sl.toString()).password("123");
 				users.add(user);
 				Object result = easemobIMUsers.createNewIMUserSingle(users);
 				if(result!=null){

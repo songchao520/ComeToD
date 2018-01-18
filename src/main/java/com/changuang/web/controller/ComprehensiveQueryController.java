@@ -37,7 +37,7 @@ public class ComprehensiveQueryController {
 	@SuppressWarnings("rawtypes")
 	@ResponseBody 
 	@RequestMapping("/getUserInfoPage") 
-	public JSONObject getUserInfoPage(Integer userRecid){
+	public JSONObject getUserInfoPage(Integer userRecid,Integer thisRecid){
 		JSONObject jso = new JSONObject();		
 		FollowSheet followSheet = new FollowSheet();
 		followSheet.setUserRecid(userRecid);
@@ -54,6 +54,15 @@ public class ComprehensiveQueryController {
 			jso.put("fens", fens);
 		}else{
 			jso.put("fens", 0);
+		}
+		followSheet = new FollowSheet();
+		followSheet.setUserRecid(thisRecid);
+		followSheet.setAnchorRecid(userRecid);
+		Integer isGuan  = operationService.getFollowSheetsCount(null, null, null, followSheet);
+		if(isGuan != 0){
+			jso.put("isGuan", 1);
+		}else{
+			jso.put("isGuan", 0);
 		}
 		UserSheet userSheet = new UserSheet();
 		userSheet.setRecid(userRecid);
