@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.changuang.domain.entity.FriendSheet;
 import com.changuang.domain.service.FriendsService;
 
@@ -23,6 +22,23 @@ import net.sf.json.JSONObject;
 public class FriendsController {
 	@Autowired
 	FriendsService friendsService;
+	
+	@ResponseBody 
+	@RequestMapping("/getFriendSheetsCount")
+	public JSONObject getFriendSheetsCount(String pagesize, String currpage, String cxtj,FriendSheet friendSheet){
+		Integer lis = friendsService.getFriendSheetsCount(pagesize, currpage, cxtj, friendSheet);
+		JSONObject jso = new JSONObject();
+		if(lis != null){
+			jso.put("msg", "获取成功");			
+			jso.put("result", "success");
+			jso.put("data", lis);
+		}else{
+			jso.put("msg", "获取失败");			
+			jso.put("result", "error");
+			jso.put("data", null);
+		}
+		return jso;
+	}
 	/**
 	 * 
 	 * @param pagesize
@@ -36,11 +52,20 @@ public class FriendsController {
 	@SuppressWarnings("rawtypes")
 	public JSONObject getFriendSheets(String pagesize, String currpage, String cxtj,FriendSheet friendSheet){
 		List lis = friendsService.getFriendSheets(pagesize, currpage, cxtj, friendSheet);
+		FriendSheet friendSheets = new FriendSheet();
+		friendSheets.setFriendStatus(6);
+		friendSheets.setUserRecidtwo(friendSheet.getUserRecidone());
+		Integer fsi = friendsService.getFriendSheetsCount(pagesize, currpage, cxtj, friendSheets);
 		JSONObject jso = new JSONObject();
 		if(lis != null){
 			jso.put("msg", "获取成功");			
 			jso.put("result", "success");
 			jso.put("data", lis);
+			if(fsi!=null){
+				jso.put("shenq", fsi);
+			}else{
+				jso.put("shenq", 0);
+			}
 		}else{
 			jso.put("msg", "获取失败");			
 			jso.put("result", "error");
@@ -86,6 +111,13 @@ public class FriendsController {
 		}
 		boolean flag = friendsService.UpdateFriendSheet(friendSheet);	
 		if(flag){
+			if(friendSheet.getFriendStatus()==1){
+				FriendSheet friendSheets = new FriendSheet();
+				friendSheets.setUserRecidone(friendSheet.getUserRecidtwo());
+				friendSheets.setUserRecidtwo(friendSheet.getUserRecidone());
+				friendSheets.setFriendStatus(1);
+				friendsService.saveFriendSheet(friendSheets);
+			}
 			jso.put("msg", "更新成功");			
 			jso.put("result", "success");
 			jso.put("data", "true");

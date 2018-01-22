@@ -34,5 +34,6 @@ public interface FriendsDao {
 	 * @return
 	 */
 	public boolean UpdateFriendSheet(FriendSheet friendSheet);
+	public Integer getFriendSheetsCount(String pagesize, String currpage, String cxtj, FriendSheet friendSheet);
 
 }

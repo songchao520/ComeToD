@@ -24,7 +24,11 @@ import com.changuang.domain.service.FriendsService;
 public class FriendsServiceImpl implements FriendsService {
 	@Autowired
 	FriendsDao friendsDao;
-
+	
+	@Override
+	public Integer getFriendSheetsCount(String pagesize, String currpage, String cxtj, FriendSheet friendSheet){
+		return  friendsDao.getFriendSheetsCount(pagesize, currpage, cxtj, friendSheet);
+	}
 	@SuppressWarnings("rawtypes")
 	@Override
 	public List getFriendSheets(String pagesize, String currpage, String cxtj, FriendSheet friendSheet) {
@@ -46,6 +50,8 @@ public class FriendsServiceImpl implements FriendsService {
 				 
 				 map.put("friendShowname",object[5]!=null ?object[5]:"" );
 				 map.put("friendHeadimg",object[6]!=null ?object[6]:"" );
+				 map.put("userShowname",object[7]!=null ?object[7]:"" );
+				 map.put("userHeadimg",object[8]!=null ?object[8]:"" );
 				 amp.add(map);
 			 }
 		 }

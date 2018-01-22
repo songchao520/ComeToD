@@ -1,6 +1,7 @@
 package com.changuang.domain.dao.impl;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -25,24 +26,36 @@ public class FriendsDaoImpl implements FriendsDao {
 	@Autowired
 	SessionFactory  sessionFactory;
 	
-	@SuppressWarnings("rawtypes")
+	
 	@Override
-	public List getFriendSheets(String pagesize, String currpage, String cxtj, FriendSheet friendSheet) {
+	public Integer getFriendSheetsCount(String pagesize, String currpage, String cxtj, FriendSheet friendSheet) {
 		StringBuffer sbf = new StringBuffer();
-		sbf.append(" select fs.recid,fs.user_recidone,fs.user_recidtwo,fs.friend_status, ");
-		sbf.append(" ls.recid as lgrecid,us.user_showname,us.user_headimg from friend_sheet as fs ");
+		sbf.append(" select count(*) ");
+		sbf.append("  from friend_sheet as fs ");
 		sbf.append(" LEFT JOIN login_sheet as ls on fs.user_recidtwo = ls.user_recid ");
 		sbf.append(" LEFT JOIN user_sheet as us on us.recid = fs.user_recidtwo ");
+		sbf.append(" LEFT JOIN user_sheet as uss on uss.recid = fs.user_recidone ");
 		sbf.append(" where 1=1 ");
 		if(friendSheet.getUserRecidone() != null){
 			sbf.append(" and fs.user_recidone = :userRecidone ");
 		}
+		if(friendSheet.getUserRecidtwo() != null){
+			sbf.append(" and fs.user_recidtwo = :userRecidtwo ");
+		}
+		if(friendSheet.getFriendStatus() != null){
+			sbf.append(" and fs.friend_status = :friendStatus ");
+		}
+		if(cxtj != null){
+			sbf.append(" and (us.user_loginname like :cxtj or us.user_showname like :cxtj ");
+			sbf.append(" or us.user_lastaddress like :cxtj ");
+			sbf.append( ")");
+		}
 		if(friendSheet.getRecid() != null){
 			sbf.append(" and fs.recid = :recid ");
 		}
-		sbf.append( " ORDER BY ls.recid DESC");
+		sbf.append( " ORDER BY fs.recid DESC");
 		if(pagesize == null){
-			pagesize = "10";
+			pagesize = "10000";
 		}
 		if(currpage == null){
 			currpage = "1";
@@ -56,6 +69,73 @@ public class FriendsDaoImpl implements FriendsDao {
 		if(friendSheet.getUserRecidone() != null){
 			query.setInteger("userRecidone", friendSheet.getUserRecidone());	
 		}
+		if(friendSheet.getUserRecidtwo() != null){
+			query.setInteger("userRecidtwo", friendSheet.getUserRecidtwo());	
+		}
+		if(friendSheet.getFriendStatus() != null){
+			query.setInteger("friendStatus", friendSheet.getFriendStatus());	
+		}
+		if(cxtj != null){
+			query.setString("cxtj","%"+cxtj+"%");	
+		}
+		if(friendSheet.getRecid() != null){
+			query.setInteger("recid", friendSheet.getRecid());	
+		}
+		return Integer.parseInt(query.list().get(0).toString());
+	}
+	@SuppressWarnings("rawtypes")
+	@Override
+	public List getFriendSheets(String pagesize, String currpage, String cxtj, FriendSheet friendSheet) {
+		StringBuffer sbf = new StringBuffer();
+		sbf.append(" select fs.recid,fs.user_recidone,fs.user_recidtwo,fs.friend_status, ");
+		sbf.append(" ls.recid as lgrecid,us.user_showname,us.user_headimg,uss.user_showname as ush,uss.user_headimg as ushe");
+		sbf.append("  from friend_sheet as fs ");
+		sbf.append(" LEFT JOIN login_sheet as ls on fs.user_recidtwo = ls.user_recid ");
+		sbf.append(" LEFT JOIN user_sheet as us on us.recid = fs.user_recidtwo ");
+		sbf.append(" LEFT JOIN user_sheet as uss on uss.recid = fs.user_recidone ");
+		sbf.append(" where 1=1 ");
+		if(friendSheet.getUserRecidone() != null){
+			sbf.append(" and fs.user_recidone = :userRecidone ");
+		}
+		if(friendSheet.getUserRecidtwo() != null){
+			sbf.append(" and fs.user_recidtwo = :userRecidtwo ");
+		}
+		if(friendSheet.getFriendStatus() != null){
+			sbf.append(" and fs.friend_status = :friendStatus ");
+		}
+		if(cxtj != null){
+			sbf.append(" and (us.user_loginname like :cxtj or us.user_showname like :cxtj ");
+			sbf.append(" or us.user_lastaddress like :cxtj ");
+			sbf.append( ")");
+		}
+		if(friendSheet.getRecid() != null){
+			sbf.append(" and fs.recid = :recid ");
+		}
+		sbf.append( " ORDER BY fs.recid DESC");
+		if(pagesize == null){
+			pagesize = "10000";
+		}
+		if(currpage == null){
+			currpage = "1";
+		}
+		int pagesizes = Integer.parseInt(pagesize);
+		int currpages = Integer.parseInt(currpage);
+		int startint = (currpages-1)*pagesizes;
+		sbf.append(" limit "+startint+","+pagesizes);
+		Session  session=sessionFactory.getCurrentSession();  
+		Query query = session.createSQLQuery (sbf.toString());
+		if(friendSheet.getUserRecidone() != null){
+			query.setInteger("userRecidone", friendSheet.getUserRecidone());	
+		}
+		if(friendSheet.getUserRecidtwo() != null){
+			query.setInteger("userRecidtwo", friendSheet.getUserRecidtwo());	
+		}
+		if(friendSheet.getFriendStatus() != null){
+			query.setInteger("friendStatus", friendSheet.getFriendStatus());	
+		}
+		if(cxtj != null){
+			query.setString("cxtj","%"+cxtj+"%");	
+		}
 		if(friendSheet.getRecid() != null){
 			query.setInteger("recid", friendSheet.getRecid());	
 		}
@@ -64,6 +144,7 @@ public class FriendsDaoImpl implements FriendsDao {
 
 	@Override
 	public Serializable saveFriendSheet(FriendSheet friendSheet) {
+		friendSheet.setCreateTime(new Date());
 		Session  session=sessionFactory.getCurrentSession();  
 	    return   session.save(friendSheet);  
 	}
@@ -79,6 +160,9 @@ public class FriendsDaoImpl implements FriendsDao {
 		sbf.append(" where 1=1 ");
 		if(friendSheet.getRecid() != null){
 			sbf.append("  and fs.recid=:recid");
+			if(friendSheet.getUserRecidone()!=null && friendSheet.getUserRecidtwo()!=null){
+				sbf.append("  and fs.user_recidone=:userRecidone and fs.user_recidtwo=:userRecidtwo ");
+			}
 		}else{
 			if(friendSheet.getUserRecidone()!=null && friendSheet.getUserRecidtwo()!=null){
 				sbf.append("  and fs.user_recidone=:userRecidone and fs.user_recidtwo=:userRecidtwo ");
