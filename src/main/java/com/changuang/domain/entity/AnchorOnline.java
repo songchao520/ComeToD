@@ -1,5 +1,5 @@
 package com.changuang.domain.entity;
-// Generated 2017-12-1 14:27:22 by Hibernate Tools 4.0.0.Final
+// Generated 2018-1-29 14:11:31 by Hibernate Tools 4.0.0.Final
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -30,12 +30,18 @@ public class AnchorOnline implements java.io.Serializable {
 	private Integer isFree;
 	private Integer isHot;
 	private Integer isRecommend;
+	private Float voiceChat;
+	private Float videoChat;
+	private String anchorName;
+	private String anchorNotice;
+	private Integer userRecid;
 
 	public AnchorOnline() {
 	}
 
 	public AnchorOnline(Integer anchorRecid, String anchorLabel, Date createTime, Integer anchorClass, Integer isFree,
-			Integer isHot, Integer isRecommend) {
+			Integer isHot, Integer isRecommend, Float voiceChat, Float videoChat, String anchorName,
+			String anchorNotice, Integer userRecid) {
 		this.anchorRecid = anchorRecid;
 		this.anchorLabel = anchorLabel;
 		this.createTime = createTime;
@@ -43,6 +49,11 @@ public class AnchorOnline implements java.io.Serializable {
 		this.isFree = isFree;
 		this.isHot = isHot;
 		this.isRecommend = isRecommend;
+		this.voiceChat = voiceChat;
+		this.videoChat = videoChat;
+		this.anchorName = anchorName;
+		this.anchorNotice = anchorNotice;
+		this.userRecid = userRecid;
 	}
 
 	@Id
@@ -119,6 +130,51 @@ public class AnchorOnline implements java.io.Serializable {
 
 	public void setIsRecommend(Integer isRecommend) {
 		this.isRecommend = isRecommend;
+	}
+
+	@Column(name = "voice_chat", precision = 12, scale = 0)
+	public Float getVoiceChat() {
+		return this.voiceChat;
+	}
+
+	public void setVoiceChat(Float voiceChat) {
+		this.voiceChat = voiceChat;
+	}
+
+	@Column(name = "video_chat", precision = 12, scale = 0)
+	public Float getVideoChat() {
+		return this.videoChat;
+	}
+
+	public void setVideoChat(Float videoChat) {
+		this.videoChat = videoChat;
+	}
+
+	@Column(name = "anchor_name")
+	public String getAnchorName() {
+		return this.anchorName;
+	}
+
+	public void setAnchorName(String anchorName) {
+		this.anchorName = anchorName;
+	}
+
+	@Column(name = "anchor_notice")
+	public String getAnchorNotice() {
+		return this.anchorNotice;
+	}
+
+	public void setAnchorNotice(String anchorNotice) {
+		this.anchorNotice = anchorNotice;
+	}
+
+	@Column(name = "user_recid")
+	public Integer getUserRecid() {
+		return this.userRecid;
+	}
+
+	public void setUserRecid(Integer userRecid) {
+		this.userRecid = userRecid;
 	}
 
 }

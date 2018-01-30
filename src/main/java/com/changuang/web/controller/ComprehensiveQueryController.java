@@ -8,11 +8,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.changuang.domain.entity.AnchorOnline;
 import com.changuang.domain.entity.FollowSheet;
 import com.changuang.domain.entity.FriendSheet;
+import com.changuang.domain.entity.PushActivity;
 import com.changuang.domain.entity.UserSheet;
+import com.changuang.domain.service.AnchorService;
 import com.changuang.domain.service.FriendsService;
 import com.changuang.domain.service.OperationService;
+import com.changuang.domain.service.PushActivityService;
 import com.changuang.domain.service.UserService;
 
 import net.sf.json.JSONObject;
@@ -31,6 +35,10 @@ public class ComprehensiveQueryController {
 	OperationService operationService;
 	@Autowired
 	FriendsService friendsService;
+	@Autowired
+	AnchorService anchorService;
+	@Autowired
+	PushActivityService pushActivityService;
 	/**
 	 * 
 	 * @param pagesize
@@ -117,6 +125,38 @@ public class ComprehensiveQueryController {
 			jso.put("shenq", lis);
 			jso.put("msg", "获取成功");			
 			jso.put("result", "success");
+		}else{
+			jso.put("msg", "获取失败");			
+			jso.put("result", "error");
+			jso.put("data", null);
+			return jso;
+		}
+		return jso;
+	}
+	
+	@SuppressWarnings("rawtypes")
+	@ResponseBody 
+	@RequestMapping("/getHotAnchor") 
+	public JSONObject getHotAnchor(AnchorOnline anchorOnline){
+		JSONObject jso = new JSONObject();
+		PushActivity pushA = new PushActivity();
+		pushA.setSource(5+"");
+		List liss = pushActivityService.getPushActivitys("10",null,null,pushA);
+		anchorOnline.setIsHot(1);
+		anchorOnline.setIsFree(1);
+		anchorOnline.setAnchorClass(1);
+		List lis = anchorService.getAnchorOnlines(null,null,null, anchorOnline);
+		anchorOnline.setIsHot(1);
+		anchorOnline.setIsFree(1);
+		anchorOnline.setAnchorClass(2);
+		List lisss = anchorService.getAnchorOnlines(null,null,null, anchorOnline);
+		if(lis != null && liss!=null){
+			jso.put("relentimg",liss);
+			jso.put("anchorVoice", lis);
+			jso.put("anchorVideo", lisss);
+			jso.put("msg", "获取成功");			
+			jso.put("result", "success");
+			
 		}else{
 			jso.put("msg", "获取失败");			
 			jso.put("result", "error");

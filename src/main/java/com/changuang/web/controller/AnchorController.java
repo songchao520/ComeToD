@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,8 +18,10 @@ import org.springframework.web.multipart.MultipartFile;
 import com.changuang.domain.entity.AnchorOnline;
 import com.changuang.domain.entity.AnchorSheet;
 import com.changuang.domain.entity.AnchorStatusSheet;
+import com.changuang.domain.entity.PushActivity;
 import com.changuang.domain.entity.UserSheet;
 import com.changuang.domain.service.AnchorService;
+import com.changuang.domain.service.PushActivityService;
 import com.changuang.domain.service.UserService;
 
 import net.sf.json.JSONObject;
@@ -35,6 +38,8 @@ public class AnchorController {
 	AnchorService anchorService;
 	@Autowired
 	UserService userService;
+	@Autowired
+	PushActivityService pushActivityService;
 	/**
 	 * 
 	 * @param pagesize
@@ -307,6 +312,10 @@ public class AnchorController {
 			jso.put("msg", "获取成功");			
 			jso.put("result", "success");
 			jso.put("data", lis);
+			PushActivity pushActivity = new PushActivity();
+			pushActivity.setSource("6");
+			List liss = pushActivityService.getPushActivitys(null, null, null, pushActivity);
+			jso.put("notice", liss);
 		}else{
 			jso.put("msg", "获取失败");			
 			jso.put("result", "error");
@@ -319,15 +328,27 @@ public class AnchorController {
 	 * @param anchorSheet
 	 * @return
 	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@ResponseBody 
 	@RequestMapping("/saveAnchorOnline")
 	public Serializable saveAnchorOnline(AnchorOnline anchorOnline){
+		AnchorSheet anchorSheet = new AnchorSheet();
+		anchorSheet.setUserRecid(anchorOnline.getUserRecid());
+		List<Map<String, Object>>  lis = anchorService.getAnchorSheets(null,null,null,anchorSheet,null);
+		
+		Integer anchorRecid = (Integer) lis.get(0).get("recid");
+		anchorOnline.setAnchorRecid(anchorRecid);
 		Serializable sl = anchorService.saveAnchorOnline(anchorOnline);
 		JSONObject jso = new JSONObject();
 		if(sl != null){
+			anchorOnline.setRecid(Integer.parseInt(sl.toString()));
 			jso.put("msg", "保存成功");			
 			jso.put("result", "success");
-			jso.put("data", sl);
+			PushActivity pushActivity = new PushActivity();
+			pushActivity.setSource("6");
+			List liss = pushActivityService.getPushActivitys(null, null, null, pushActivity);
+			jso.put("notice", liss);
+			jso.put("data", anchorService.getAnchorOnlines(null, null, null, anchorOnline));
 		}else{
 			jso.put("msg", "保存失败");			
 			jso.put("result", "error");

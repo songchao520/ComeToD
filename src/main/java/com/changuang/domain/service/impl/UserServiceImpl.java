@@ -115,6 +115,7 @@ public class UserServiceImpl implements UserService{
 				 map.put("userSource",object[21]!=null ?object[21]:"" );
 				 map.put("utypeRecid",object[22]!=null ?object[22]:"" );
 				 map.put("userCity",object[23]!=null ?object[23]:"" );
+				 map.put("leanCloud",object[24]!=null ?object[24]:"" );
 				 amp.add(map);
 			 }
 		 }

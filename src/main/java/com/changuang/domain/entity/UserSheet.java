@@ -1,5 +1,5 @@
 package com.changuang.domain.entity;
-// Generated 2017-12-22 11:44:20 by Hibernate Tools 4.0.0.Final
+// Generated 2018-1-30 15:13:08 by Hibernate Tools 4.0.0.Final
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -47,6 +47,7 @@ public class UserSheet implements java.io.Serializable {
 	private String userLabels;
 	private String userSource;
 	private String userCity;
+	private String leanCloud;
 
 	public UserSheet() {
 	}
@@ -55,7 +56,7 @@ public class UserSheet implements java.io.Serializable {
 			String userMobilephone, String userHeadimg, String userRemarks, Integer userStatus, Date userCreatetime,
 			Date userLasttime, String userLastaddress, String userTencent, Integer userVip, Integer anchorStatus,
 			Float wealthAmount, Integer wealthGrade, Integer userSex, Integer isVip, String userLabel,
-			String userLabelt, String userLabels, String userSource, String userCity) {
+			String userLabelt, String userLabels, String userSource, String userCity, String leanCloud) {
 		this.utypeRecid = utypeRecid;
 		this.userLoginname = userLoginname;
 		this.userShowname = userShowname;
@@ -79,6 +80,7 @@ public class UserSheet implements java.io.Serializable {
 		this.userLabels = userLabels;
 		this.userSource = userSource;
 		this.userCity = userCity;
+		this.leanCloud = leanCloud;
 	}
 
 	@Id
@@ -300,6 +302,15 @@ public class UserSheet implements java.io.Serializable {
 
 	public void setUserCity(String userCity) {
 		this.userCity = userCity;
+	}
+
+	@Column(name = "lean_cloud")
+	public String getLeanCloud() {
+		return this.leanCloud;
+	}
+
+	public void setLeanCloud(String leanCloud) {
+		this.leanCloud = leanCloud;
 	}
 
 }

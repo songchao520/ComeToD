@@ -165,7 +165,7 @@ public class AnchorServiceImpl implements AnchorService {
 				 map.put("recid",object[0] );
 				 map.put("userRecid",object[1]!=null ?object[1]:"" );
 				 map.put("anchorRecid",object[2]!=null ?object[2]:"" );
-				 map.put("aonchorLabel",object[3]!=null ?object[3]:"" );
+				 map.put("userCity",object[3]!=null ?object[3]:"" );
 				 map.put("anchorVc",object[4]!=null ?object[4]:"" );
 				 map.put("anchorVd",object[5]!=null ?object[5]:"" );
 				 map.put("anchorClass",object[6]!=null ?object[6]:"" );
@@ -177,7 +177,7 @@ public class AnchorServiceImpl implements AnchorService {
 					 map.put("createTime" ,"" );
 				 }
 				
-				 map.put("userShowName",object[8]!=null ?object[8]:"" );
+				 map.put("userShowname",object[8]!=null ?object[8]:"" );
 				 map.put("anchorIsFree",object[9]!=null ?object[9]:"" );
 				 map.put("userHeadimg",object[10]!=null ?object[10]:"" );
 				 map.put("LabelOne",object[11]!=null ?object[11]:"" );
@@ -186,6 +186,10 @@ public class AnchorServiceImpl implements AnchorService {
 				 map.put("smallPhoto",object[14]!=null ?object[14]:"" );
 				 map.put("bigPhoto",object[15]!=null ?object[15]:"" );
 				 map.put("userSex",object[16]!=null ?object[16]:"" );
+				 map.put("homeName",object[17]!=null ?object[17]:"" );
+				 map.put("homeNotice",object[18]!=null ?object[18]:"" );
+				 map.put("userRecid",object[19]!=null ?object[19]:"" );
+				 map.put("leanCloud",object[20]!=null ?object[20]:"" );
 				 amp.add(map);
 			 }
 		 }

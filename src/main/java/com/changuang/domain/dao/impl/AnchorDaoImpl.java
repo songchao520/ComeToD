@@ -652,14 +652,15 @@ public class AnchorDaoImpl implements AnchorDao {
 	@Override
 	public List getAnchorOnlines(String pagesize, String currpage, String cxtj, AnchorOnline anchorOnline) {
 		StringBuffer sbf = new StringBuffer();
-		sbf.append(" select aon.recid,us.recid as userr,ash.recid as aonrecid,aon.anchor_label as aonlb,ash.voice_chat as ashvc,");
-		sbf.append(" ash.video_chat as ashvd,ash.anchor_class as ashac,aon.create_time as aonct,us.user_showname,");
+		sbf.append(" select aon.recid,us.recid as userr,ash.recid as aonrecid,aon.anchor_label as aonlb,aon.voice_chat as ashvc,");
+		sbf.append(" aon.video_chat as ashvd,aon.anchor_class as ashac,aon.create_time as aonct,us.user_showname,");
 		sbf.append(" aon.is_free as ashif,us.user_headimg,us.user_label,us.user_labelt,us.user_labels, ");
-		sbf.append(" ash.small_photo,ash.my_photo,us.user_sex");
+		sbf.append(" ash.small_photo,ash.my_photo,us.user_sex,aon.anchor_name,aon.anchor_notice,aon.user_recid,");
+		sbf.append(" us.lean_cloud");
 		sbf.append(" from anchor_online as aon LEFT JOIN anchor_sheet as ash on aon.anchor_recid = ash.recid");
 		sbf.append(" LEFT JOIN user_sheet as us on us.recid = ash.user_recid");
 		
-		sbf.append(" where 1=1");
+		sbf.append(" where aon.recid!=1000000");
 		if(anchorOnline.getRecid() != null){
 			sbf.append("  and aon.recid=:recid");
 		}else{
@@ -667,17 +668,27 @@ public class AnchorDaoImpl implements AnchorDao {
 				sbf.append("  and  aon.anchor_online=:anchorRecid");
 			}
 		}
+		if(anchorOnline.getAnchorClass()!=null){
+			if(anchorOnline.getAnchorClass() == 1){
+				sbf.append(" and ash.anchor_class  in (1,3)");
+			}else{
+				sbf.append(" and ash.anchor_class  in (2,3)");
+			}
+			
+		}
 		if(anchorOnline.getIsFree() != null){
 			sbf.append(" and aon.is_free =:isFree");
 		}
 		if(anchorOnline.getIsHot() != null){
-			sbf.append(" order by ash.is_hot desc");
+			sbf.append(" order by ash.is_hot,aon.recid desc");
 		}
 		if(anchorOnline.getIsRecommend() != null){
-			sbf.append(" order by ash.is_recommend desc");
+			sbf.append(" order by ash.is_recommend,aon.recid desc");
+		}
+		if(anchorOnline.getIsHot() == null && anchorOnline.getIsRecommend() == null ){
+			sbf.append( " order by aon.recid desc");
 		}
 		
-		sbf.append( " order by aon.recid desc");
 		if(pagesize == null){
 			pagesize = "10";
 		}
@@ -706,6 +717,7 @@ public class AnchorDaoImpl implements AnchorDao {
 	@Override
 	public Serializable saveAnchorOnline(AnchorOnline anchorOnline) {
 		Session  session=sessionFactory.getCurrentSession();  
+		anchorOnline.setCreateTime(new Date());
 	    return   session.save(anchorOnline);  
 	}
 
@@ -716,7 +728,7 @@ public class AnchorDaoImpl implements AnchorDao {
 		sbf.append(" Update anchor_online as aon set");
 		boolean flag = true;
 		if(anchorOnline.getAnchorLabel() != null){
-			sbf.append(" aon.anchor_label = :anchorLabel");
+			sbf.append("  aon.anchor_label = :anchorLabel");
 			flag = false;
 		}
 		if(anchorOnline.getIsFree() != null){

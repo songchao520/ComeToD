@@ -149,7 +149,7 @@ public class UserDaoImpl implements UserDao {
 		sbf.append("us.user_showname,us.user_headimg,us.user_remarks, ");
 		sbf.append("us.user_status,us.user_createtime,us.user_lasttime,us.user_lastaddress, ");
 		sbf.append("us.user_tencent,us.user_vip,us.anchor_status,us.wealth_amount,us.wealth_grade,us.user_sex,us.is_vip ");
-		sbf.append(" ,us.user_mobilephone,us.user_source,us.utype_recid,us.user_city from user_sheet as us ");
+		sbf.append(" ,us.user_mobilephone,us.user_source,us.utype_recid,us.user_city,us.lean_cloud from user_sheet as us ");
 		sbf.append("left join user_type as ut on us.utype_recid = ut.recid ");
 		sbf.append("left join label_sheet as ls on us.user_label = ls.recid ");
 		sbf.append("left join label_sheet as ls2 on us.user_labelt = ls2.recid ");
@@ -375,6 +375,14 @@ public class UserDaoImpl implements UserDao {
 				sbf.append(" ,us.user_city =:userCity");
 			}			
 		}
+		if(userSheet.getLeanCloud() != null){
+			if(flag){
+				sbf.append(" us.lean_cloud =:leanCloud");
+				flag = false;
+			}else{
+				sbf.append(" ,us.lean_cloud =:leanCloud");
+			}			
+		}
 		sbf.append(" where 1=1");
 		if(userSheet.getRecid()!=null){
 			sbf.append(" and us.recid=:recid");
@@ -448,6 +456,9 @@ public class UserDaoImpl implements UserDao {
 		 }
 		 if(userSheet.getUserCity() != null){
 			 query.setString("userCity", userSheet.getUserCity());			
+			}
+		 if(userSheet.getLeanCloud() != null){
+			 query.setString("leanCloud", userSheet.getLeanCloud());					
 			}
 		 if(userSheet.getRecid()!=null){
 			 query.setInteger("recid", userSheet.getRecid());

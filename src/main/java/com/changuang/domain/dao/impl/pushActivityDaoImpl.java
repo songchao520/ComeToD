@@ -55,6 +55,8 @@ public class pushActivityDaoImpl implements PushActivityDao {
 		}
 		if(pushActivity.getSource()!=null){
 			sbf.append(" and pa.source = :source ");			
+		}else{
+			sbf.append(" and pa.source != 5 and pa.source != 6");	
 		}
 		if(cxtj != null){
 			sbf.append(" and (pa.activity_http like :cxtj or pa.message_title like :cxtj or pa.message_content like :cxtj");
@@ -111,6 +113,8 @@ public class pushActivityDaoImpl implements PushActivityDao {
 		}
 		if(pushActivity.getSource()!=null){
 			sbf.append(" and pa.source = :source ");			
+		}else{
+			sbf.append(" and pa.source != 5 and pa.source != 6 ");	
 		}
 		if(cxtj != null){
 			sbf.append(" and (pa.activity_http like :cxtj or pa.message_title like :cxtj or pa.message_content like :cxtj");

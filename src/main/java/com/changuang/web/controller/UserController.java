@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.aliyuncs.exceptions.ClientException;
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVOSCloud;
+import com.avos.avoscloud.AVObject;
 import com.changuang.domain.entity.UserSheet;
 import com.changuang.domain.entity.UserType;
 import com.changuang.domain.huanxin.api.IMUserAPI;
@@ -172,10 +175,11 @@ public class UserController {
 	 * @desc 保存用户
 	 * @param pagesize currpage cxtj userSheet
 	 * @return 用户ID
+	 * @throws AVException 
 	 */
 	@ResponseBody 
 	@RequestMapping("/saveUserSheet")  
-	public JSONObject saveUserSheet(HttpServletRequest request,UserSheet userSheet){
+	public JSONObject saveUserSheet(HttpServletRequest request,UserSheet userSheet) throws AVException{
 		JSONObject jso = new JSONObject();		
 		String loginname = userSheet.getUserMobilephone();
 		String smsYzm = request.getParameter("smsYzm");
@@ -196,6 +200,16 @@ public class UserController {
 					User user = new User().username(sl.toString()).password("123");
 					users.add(user);
 					Object result = easemobIMUsers.createNewIMUserSingle(users);
+					 AVOSCloud.initialize("tLpT9qgpccc216Q6RoXSYtE8-gzGzoHsz","UmSww1C618sJAW33Pt0z6vpN","2e0p4twE2Lvm03Fgxm69AeXx");
+					AVObject conversation = new AVObject("_Conversation");
+					 conversation.put("name", sl.toString());
+					 conversation.put("tr", true);
+					 conversation.save();
+					 String objectId =  conversation.getObjectId();
+					 UserSheet userSheets = new UserSheet();
+					 userSheets.setLeanCloud(objectId);
+					 userSheets.setRecid(Integer.parseInt(sl.toString()));
+					 userService.UpdateUserSheet(userSheets);
 					if(result!=null){
 						jso.put("msg", "注册成功");			
 						jso.put("result", "success");
@@ -319,11 +333,12 @@ public class UserController {
 	 * @desc 第三方授权登录
 	 * @param 
 	 * @return request
+	 * @throws AVException 
 	 */
 	@SuppressWarnings({ "unchecked" })
 	@ResponseBody 
 	@RequestMapping("/ThirdLogin")  
-	public JSONObject ThirdLogin(HttpServletRequest request){
+	public JSONObject ThirdLogin(HttpServletRequest request) throws AVException{
 		JSONObject jso = new JSONObject();		
 		String from = request.getParameter("from");
 		String openid = request.getParameter("openid");
@@ -357,6 +372,16 @@ public class UserController {
 				User user = new User().username(sl.toString()).password("123");
 				users.add(user);
 				Object result = easemobIMUsers.createNewIMUserSingle(users);
+				 AVOSCloud.initialize("tLpT9qgpccc216Q6RoXSYtE8-gzGzoHsz","UmSww1C618sJAW33Pt0z6vpN","2e0p4twE2Lvm03Fgxm69AeXx");
+				AVObject conversation = new AVObject("_Conversation");
+				 conversation.put("name", sl.toString());
+				 conversation.put("tr", true);
+				 conversation.save();
+				 String objectId =  conversation.getObjectId();
+				 UserSheet userSheets = new UserSheet();
+				 userSheets.setLeanCloud(objectId);
+				 userSheets.setRecid(Integer.parseInt(sl.toString()));
+				 userService.UpdateUserSheet(userSheets);
 				if(result!=null){
 					jso.put("msg", "注册成功");			
 					jso.put("result", "success");
