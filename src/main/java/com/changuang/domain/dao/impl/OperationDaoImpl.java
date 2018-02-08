@@ -1,6 +1,7 @@
 package com.changuang.domain.dao.impl;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -42,6 +43,14 @@ public class OperationDaoImpl implements OperationDao {
 		}
 		if(followSheet.getAnchorRecid() != null){
 			sbf.append(" and fs.anchor_recid = :anchorRecid ");
+		}
+		if(followSheet.getCreateTime()!=null){
+			Date day=new Date();    
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
+			String enddates = df.format(day);  
+			String startdates = df.format(followSheet.getCreateTime());
+			sbf.append(" and (fs.create_time BETWEEN '"+startdates+"' and '"+enddates+"' )");
+			
 		}
 		sbf.append( " ORDER BY fs.recid DESC");
 		if(pagesize == null){

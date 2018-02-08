@@ -60,7 +60,7 @@ public class UserDaoImpl implements UserDao {
 		float lg = 0;
 		userSheet.setWealthAmount(lg);
 		userSheet.setUserVip(-1);
-		userSheet.setWealthGrade(0);
+		userSheet.setWealthGrade(1);
 		userSheet.setAnchorStatus(1);
 		userSheet.setUserCreatetime(new Date());
 		
@@ -149,12 +149,13 @@ public class UserDaoImpl implements UserDao {
 		sbf.append("us.user_showname,us.user_headimg,us.user_remarks, ");
 		sbf.append("us.user_status,us.user_createtime,us.user_lasttime,us.user_lastaddress, ");
 		sbf.append("us.user_tencent,us.user_vip,us.anchor_status,us.wealth_amount,us.wealth_grade,us.user_sex,us.is_vip ");
-		sbf.append(" ,us.user_mobilephone,us.user_source,us.utype_recid,us.user_city,us.lean_cloud from user_sheet as us ");
-		sbf.append("left join user_type as ut on us.utype_recid = ut.recid ");
-		sbf.append("left join label_sheet as ls on us.user_label = ls.recid ");
-		sbf.append("left join label_sheet as ls2 on us.user_labelt = ls2.recid ");
-		sbf.append("left join label_sheet as ls3 on us.user_labels = ls3.recid ");
-		sbf.append("where us.recid!=1000000 ");
+		sbf.append(" ,us.user_mobilephone,us.user_source,us.utype_recid,us.user_city,us.lean_cloud,us.wealth_zong  ");
+		sbf.append("  from user_sheet as us ");
+		sbf.append(" left join user_type as ut on us.utype_recid = ut.recid ");
+		sbf.append(" left join label_sheet as ls on us.user_label = ls.recid ");
+		sbf.append(" left join label_sheet as ls2 on us.user_labelt = ls2.recid ");
+		sbf.append(" left join label_sheet as ls3 on us.user_labels = ls3.recid ");
+		sbf.append(" where us.recid!=1000000 ");
 		if(userSheet.getRecid() != null){
 			sbf.append(" and us.recid = :recid");			
 		}
@@ -383,12 +384,22 @@ public class UserDaoImpl implements UserDao {
 				sbf.append(" ,us.lean_cloud =:leanCloud");
 			}			
 		}
+		if(userSheet.getWealthZong() != null){
+			if(flag){
+				sbf.append(" us.wealth_zong =:wealthZong");
+				flag = false;
+			}else{
+				sbf.append(" ,us.wealth_zong =:wealthZong");
+			}			
+		}
 		sbf.append(" where 1=1");
 		if(userSheet.getRecid()!=null){
 			sbf.append(" and us.recid=:recid");
 		}else{
 			if(userSheet.getUserMobilephone()!=null){
 				sbf.append(" and us.user_mobilephone=:userMobilephone");
+			}else{
+				return false;
 			}
 		}
 		
@@ -459,6 +470,10 @@ public class UserDaoImpl implements UserDao {
 			}
 		 if(userSheet.getLeanCloud() != null){
 			 query.setString("leanCloud", userSheet.getLeanCloud());					
+			}
+			if(userSheet.getWealthZong() != null){
+				 query.setFloat("wealthZong", userSheet.getWealthZong());					
+	
 			}
 		 if(userSheet.getRecid()!=null){
 			 query.setInteger("recid", userSheet.getRecid());

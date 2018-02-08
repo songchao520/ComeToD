@@ -75,4 +75,11 @@ public interface GiftService {
 	 * @return
 	 */
 	public boolean UpdateRewardSheet(RewardSheet rewardSheet);
+	/**
+	 * @desc 获取排行榜
+	 * @param RewardSheet
+	 * @return
+	 */
+	@SuppressWarnings("rawtypes")
+	public List getRankList(String pagesize, String currpage, String cxtj,RewardSheet rewardSheet);
 }

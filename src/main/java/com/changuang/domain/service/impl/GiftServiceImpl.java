@@ -48,6 +48,7 @@ public class GiftServiceImpl implements GiftService {
 				 }
 				 map.put("giftPath",object[4]!=null ?object[4]:"" );
 				 map.put("isShow",object[5]!=null ?object[5]:"" );
+				 map.put("continuous",object[6]!=null ?object[6]:"" );
 				 amp.add(map);
 			 }
 		 }
@@ -115,5 +116,23 @@ public class GiftServiceImpl implements GiftService {
 	public Integer getRewardSheetsCount(String pagesize, String currpage, String cxtj, RewardSheet rewardSheet) {
 		return giftDao.getRewardSheetsCount(pagesize, currpage, cxtj, rewardSheet);
 	}
-
+	@SuppressWarnings("rawtypes")
+	@Override
+	public List getRankList(String pagesize, String currpage, String cxtj,RewardSheet rewardSheet){
+		ArrayList<HashMap<String, Object>> amp = new ArrayList<>();
+		List alist = giftDao.getRankList(pagesize, currpage, cxtj, rewardSheet);
+		 if(alist != null && alist.size()>0){
+			 for(int i = 0; i < alist.size();i++){
+				 Object[] object = (Object[])alist.get(i);
+				 HashMap< String, Object> map = new HashMap<>();
+				 map.put("userRecid",object[0]!=null ?object[0]:"" );
+				 map.put("userShowname",object[1]!=null ?object[1]:"" );
+				 map.put("userHeadimg",object[2]!=null ?object[2]:"");
+				 map.put("moneySum",object[3]!=null ?object[3]:0 );
+				 map.put("wealthGrade",object[4]!=null ?object[4]:"");
+				 amp.add(map);
+			 }
+		 }
+		 return amp;
+	}
 }

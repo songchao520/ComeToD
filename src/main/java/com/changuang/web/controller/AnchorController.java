@@ -305,8 +305,8 @@ public class AnchorController {
 	@ResponseBody 
 	@RequestMapping("/getAnchorOnlines")
 	@SuppressWarnings("rawtypes")
-	public JSONObject getAnchorOnlines(String pagesize, String currpage, String cxtj,AnchorOnline anchorOnline){
-		List lis = anchorService.getAnchorOnlines(pagesize,currpage,cxtj,anchorOnline);
+	public JSONObject getAnchorOnlines(String pagesize, String currpage, String cxtj,AnchorOnline anchorOnline,Integer thisRecid){
+		List lis = anchorService.getAnchorOnlines(pagesize,currpage,cxtj,anchorOnline,thisRecid);
 		JSONObject jso = new JSONObject();
 		if(lis != null){
 			jso.put("msg", "获取成功");			
@@ -348,7 +348,7 @@ public class AnchorController {
 			pushActivity.setSource("6");
 			List liss = pushActivityService.getPushActivitys(null, null, null, pushActivity);
 			jso.put("notice", liss);
-			jso.put("data", anchorService.getAnchorOnlines(null, null, null, anchorOnline));
+			jso.put("data", anchorService.getAnchorOnlines(null, null, null, anchorOnline,null));
 		}else{
 			jso.put("msg", "保存失败");			
 			jso.put("result", "error");

@@ -1,5 +1,5 @@
 package com.changuang.domain.entity;
-// Generated 2018-1-30 15:13:08 by Hibernate Tools 4.0.0.Final
+// Generated 2018-2-1 14:53:51 by Hibernate Tools 4.0.0.Final
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -48,6 +48,7 @@ public class UserSheet implements java.io.Serializable {
 	private String userSource;
 	private String userCity;
 	private String leanCloud;
+	private Float wealthZong;
 
 	public UserSheet() {
 	}
@@ -56,7 +57,8 @@ public class UserSheet implements java.io.Serializable {
 			String userMobilephone, String userHeadimg, String userRemarks, Integer userStatus, Date userCreatetime,
 			Date userLasttime, String userLastaddress, String userTencent, Integer userVip, Integer anchorStatus,
 			Float wealthAmount, Integer wealthGrade, Integer userSex, Integer isVip, String userLabel,
-			String userLabelt, String userLabels, String userSource, String userCity, String leanCloud) {
+			String userLabelt, String userLabels, String userSource, String userCity, String leanCloud,
+			Float wealthZong) {
 		this.utypeRecid = utypeRecid;
 		this.userLoginname = userLoginname;
 		this.userShowname = userShowname;
@@ -81,6 +83,7 @@ public class UserSheet implements java.io.Serializable {
 		this.userSource = userSource;
 		this.userCity = userCity;
 		this.leanCloud = leanCloud;
+		this.wealthZong = wealthZong;
 	}
 
 	@Id
@@ -311,6 +314,15 @@ public class UserSheet implements java.io.Serializable {
 
 	public void setLeanCloud(String leanCloud) {
 		this.leanCloud = leanCloud;
+	}
+
+	@Column(name = "wealth_zong", precision = 12, scale = 0)
+	public Float getWealthZong() {
+		return this.wealthZong;
+	}
+
+	public void setWealthZong(Float wealthZong) {
+		this.wealthZong = wealthZong;
 	}
 
 }

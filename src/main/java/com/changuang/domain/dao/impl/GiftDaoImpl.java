@@ -1,6 +1,8 @@
 package com.changuang.domain.dao.impl;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -42,7 +44,7 @@ public class GiftDaoImpl implements GiftDao {
 			sbf.append(" or gs.gift_money like :cxtj j");
 			sbf.append( ")");
 		}
-		sbf.append( " order by gs.gift_money desc");
+		sbf.append( " order by gs.gift_money ");
 		if(pagesize == null){
 			pagesize = "10";
 		}
@@ -83,7 +85,7 @@ public class GiftDaoImpl implements GiftDao {
 			sbf.append(" or gs.gift_money like :cxtj j");
 			sbf.append( ")");
 		}
-		sbf.append( " order by gs.gift_money desc");
+		sbf.append( " order by gs.gift_money");
 		if(pagesize == null){
 			pagesize = "10";
 		}
@@ -110,6 +112,8 @@ public class GiftDaoImpl implements GiftDao {
 
 	@Override
 	public Serializable saveGiftSheet(GiftSheet giftSheet) {
+		giftSheet.setCreateTime(new Date());
+		giftSheet.setContinuous(1);
 		Session  session=sessionFactory.getCurrentSession();  
 	    return   session.save(giftSheet);  
 	}
@@ -291,6 +295,8 @@ public class GiftDaoImpl implements GiftDao {
 
 	@Override
 	public Serializable saveRewardSheet(RewardSheet rewardSheet) {
+		rewardSheet.setCreateTime(new Date());
+		
 		Session  session=sessionFactory.getCurrentSession();  
 	    return   session.save(rewardSheet);  
 	}
@@ -300,7 +306,65 @@ public class GiftDaoImpl implements GiftDao {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
 	
+	@SuppressWarnings("rawtypes")
+	@Override
+	public List getRankList(String pagesize, String currpage, String cxtj,RewardSheet rewardSheet){
+
+		StringBuffer sbf = new StringBuffer();
+		sbf.append(" select us.recid ,us.user_showname ,us.user_headimg ,sum(rs.reward_amount) as resum, ");
+		sbf.append(" us.wealth_grade ");
+		sbf.append("  from reward_sheet as rs  ");
+		sbf.append(" LEFT JOIN user_sheet as us on rs.user_recid = us.recid ");
+		sbf.append(" where 1=1");
+		if(rewardSheet.getAnchorRecid()!=null){
+			sbf.append("  and rs.anchor_recid=:anchorRecid");
+		}
+		if(cxtj != null){
+			Date day=new Date();    
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd"); 
+			if(cxtj.equals("1")){
+				String dates = df.format(day);  
+				String jd = dates+" 00:00:00";
+				String md = dates+" 23:59:59";
+				sbf.append(" and (rs.create_time BETWEEN '"+jd+"' and '"+md+"' )");
+			}else if(cxtj.equals("2")){
+				String dates = df.format(day);  
+				String jd = dates.substring(0,8)+" 00:00:00";
+				String md = dates+" 23:59:59";
+				sbf.append(" and (rs.create_time BETWEEN '"+jd+"' and '"+md+"' )");
+			}
+		}
+		if(rewardSheet.getCreateTime()!=null){
+			Date day=new Date();    
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
+			String enddates = df.format(day);  
+			String startdates = df.format(rewardSheet.getCreateTime());
+			sbf.append(" and (rs.create_time BETWEEN '"+startdates+"' and '"+enddates+"' )");
+		}else{
+			sbf.append( " GROUP BY us.recid  ");
+		}
+		
+		
+		sbf.append(" order by resum desc ");
+		if(pagesize == null){
+			pagesize = "10";
+		}
+		if(currpage == null){
+			currpage = "1";
+		}
+		int pagesizes = Integer.parseInt(pagesize);
+		int currpages = Integer.parseInt(currpage);
+		int startint = (currpages-1)*pagesizes;
+		sbf.append(" limit "+startint+","+pagesizes);
+		Session  session=sessionFactory.getCurrentSession();  
+		Query query = session.createSQLQuery (sbf.toString());
+		if(rewardSheet.getAnchorRecid() != null){
+			query.setInteger("anchorRecid", rewardSheet.getAnchorRecid());
+		}
+
+		return query.list();
+	
+	}
 
 }

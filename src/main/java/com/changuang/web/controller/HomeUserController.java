@@ -8,8 +8,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.changuang.domain.entity.AnchorOnline;
 import com.changuang.domain.entity.HomeUser;
+import com.changuang.domain.entity.PushActivity;
+import com.changuang.domain.service.AnchorService;
 import com.changuang.domain.service.HomeUserService;
+import com.changuang.domain.service.PushActivityService;
 
 import net.sf.json.JSONObject;
 
@@ -23,6 +27,10 @@ import net.sf.json.JSONObject;
 public class HomeUserController {
 	@Autowired
 	HomeUserService homeUserService;
+	@Autowired
+	AnchorService anchorService;
+	@Autowired
+	PushActivityService pushActivityService;
 	/**
 	 * 
 	 * @param pagesize
@@ -78,6 +86,7 @@ public class HomeUserController {
 	 * @param HomeUser
 	 * @return
 	 */
+	@SuppressWarnings("rawtypes")
 	@ResponseBody 
 	@RequestMapping("/saveHomeUser") 
 	public JSONObject saveHomeUser(HomeUser homeUser){
@@ -86,7 +95,14 @@ public class HomeUserController {
 		if(sl != null){
 			jso.put("msg", "保存成功");			
 			jso.put("result", "success");
-			jso.put("data", sl);
+			AnchorOnline anchorOnline = new AnchorOnline();
+			anchorOnline.setRecid(homeUser.getHomeRecid());
+			List lis =  anchorService.getAnchorOnlines(null, null, null, anchorOnline, homeUser.getUserRecid());
+			jso.put("data", lis);
+			PushActivity pushActivity = new PushActivity();
+			pushActivity.setSource("6");
+			List liss = pushActivityService.getPushActivitys(null, null, null, pushActivity);
+			jso.put("notice", liss);
 		}else{
 			jso.put("msg", "保存失败");			
 			jso.put("result", "error");

@@ -656,9 +656,12 @@ public class AnchorDaoImpl implements AnchorDao {
 		sbf.append(" aon.video_chat as ashvd,aon.anchor_class as ashac,aon.create_time as aonct,us.user_showname,");
 		sbf.append(" aon.is_free as ashif,us.user_headimg,us.user_label,us.user_labelt,us.user_labels, ");
 		sbf.append(" ash.small_photo,ash.my_photo,us.user_sex,aon.anchor_name,aon.anchor_notice,aon.user_recid,");
-		sbf.append(" us.lean_cloud");
+		sbf.append(" us.lean_cloud,ls.label_name lb1,ls2.label_name lb2,ls3.label_name lb3,aon.user_num");
 		sbf.append(" from anchor_online as aon LEFT JOIN anchor_sheet as ash on aon.anchor_recid = ash.recid");
-		sbf.append(" LEFT JOIN user_sheet as us on us.recid = ash.user_recid");
+		sbf.append(" LEFT JOIN user_sheet as us on us.recid = ash.user_recid ");
+		sbf.append(" left join label_sheet as ls on us.user_label = ls.recid ");
+		sbf.append(" left join label_sheet as ls2 on us.user_labelt = ls2.recid ");
+		sbf.append(" left join label_sheet as ls3 on us.user_labels = ls3.recid ");
 		
 		sbf.append(" where aon.recid!=1000000");
 		if(anchorOnline.getRecid() != null){

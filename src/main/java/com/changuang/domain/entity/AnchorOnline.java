@@ -1,5 +1,5 @@
 package com.changuang.domain.entity;
-// Generated 2018-1-29 14:11:31 by Hibernate Tools 4.0.0.Final
+// Generated 2018-2-7 15:40:44 by Hibernate Tools 4.0.0.Final
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -35,13 +35,14 @@ public class AnchorOnline implements java.io.Serializable {
 	private String anchorName;
 	private String anchorNotice;
 	private Integer userRecid;
+	private Integer userNum;
 
 	public AnchorOnline() {
 	}
 
 	public AnchorOnline(Integer anchorRecid, String anchorLabel, Date createTime, Integer anchorClass, Integer isFree,
 			Integer isHot, Integer isRecommend, Float voiceChat, Float videoChat, String anchorName,
-			String anchorNotice, Integer userRecid) {
+			String anchorNotice, Integer userRecid, Integer userNum) {
 		this.anchorRecid = anchorRecid;
 		this.anchorLabel = anchorLabel;
 		this.createTime = createTime;
@@ -54,6 +55,7 @@ public class AnchorOnline implements java.io.Serializable {
 		this.anchorName = anchorName;
 		this.anchorNotice = anchorNotice;
 		this.userRecid = userRecid;
+		this.userNum = userNum;
 	}
 
 	@Id
@@ -175,6 +177,15 @@ public class AnchorOnline implements java.io.Serializable {
 
 	public void setUserRecid(Integer userRecid) {
 		this.userRecid = userRecid;
+	}
+
+	@Column(name = "user_num")
+	public Integer getUserNum() {
+		return this.userNum;
+	}
+
+	public void setUserNum(Integer userNum) {
+		this.userNum = userNum;
 	}
 
 }

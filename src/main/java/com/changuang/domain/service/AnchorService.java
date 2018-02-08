@@ -86,7 +86,7 @@ public interface AnchorService {
 	 * @desc 获取在线主播
 	 */
 	@SuppressWarnings("rawtypes")
-	public List getAnchorOnlines(String pagesize, String currpage, String cxtj,AnchorOnline anchorOnline);
+	public List getAnchorOnlines(String pagesize, String currpage, String cxtj,AnchorOnline anchorOnline,Integer thisRecid);
 	/**
 	 * @desc 添加在线主播（审核失败走修改主播信息）
 	 * @param anchorSheet

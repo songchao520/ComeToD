@@ -11,9 +11,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.changuang.domain.dao.AnchorDao;
+import com.changuang.domain.dao.HomeUserDao;
+import com.changuang.domain.dao.OperationDao;
 import com.changuang.domain.entity.AnchorOnline;
 import com.changuang.domain.entity.AnchorSheet;
 import com.changuang.domain.entity.AnchorStatusSheet;
+import com.changuang.domain.entity.FollowSheet;
+import com.changuang.domain.entity.HomeUser;
 import com.changuang.domain.service.AnchorService;
 
 /**
@@ -27,6 +31,10 @@ import com.changuang.domain.service.AnchorService;
 public class AnchorServiceImpl implements AnchorService {
 	@Autowired 
 	AnchorDao anchorDao;
+	@Autowired 
+	OperationDao operationDao;
+	@Autowired
+	HomeUserDao homeUserDao;
 	/**
 	 * 
 	 * @param pagesize
@@ -155,7 +163,7 @@ public class AnchorServiceImpl implements AnchorService {
 
 	@SuppressWarnings("rawtypes")
 	@Override
-	public List getAnchorOnlines(String pagesize, String currpage, String cxtj, AnchorOnline anchorOnline) {
+	public List getAnchorOnlines(String pagesize, String currpage, String cxtj, AnchorOnline anchorOnline,Integer thisRecid) {
 		ArrayList<HashMap<String, Object>> amp = new ArrayList<>();
 		List alist = anchorDao.getAnchorOnlines(pagesize, currpage, cxtj, anchorOnline);
 		 if(alist != null && alist.size()>0){
@@ -163,6 +171,13 @@ public class AnchorServiceImpl implements AnchorService {
 				 Object[] object = (Object[])alist.get(i);
 				 HashMap< String, Object> map = new HashMap<>();
 				 map.put("recid",object[0] );
+				 HomeUser homeUser = new HomeUser();
+				 if(object[0] != null){
+					 homeUser.setHomeRecid((Integer) object[0]);
+					 Integer homeUsersNum = homeUserDao.getHomeUsersCount(pagesize, currpage, cxtj, homeUser);
+					 map.put("homeUsersNum",homeUsersNum );
+				 }
+				 
 				 map.put("userRecid",object[1]!=null ?object[1]:"" );
 				 map.put("anchorRecid",object[2]!=null ?object[2]:"" );
 				 map.put("userCity",object[3]!=null ?object[3]:"" );
@@ -190,6 +205,22 @@ public class AnchorServiceImpl implements AnchorService {
 				 map.put("homeNotice",object[18]!=null ?object[18]:"" );
 				 map.put("userRecid",object[19]!=null ?object[19]:"" );
 				 map.put("leanCloud",object[20]!=null ?object[20]:"" );
+				 map.put("labelNameOne",object[21]!=null ?object[21]:"" );
+				 map.put("labelNameTwo",object[22]!=null ?object[22]:"" );
+				 map.put("labelNameThree",object[23]!=null ?object[23]:"" );
+				 map.put("userNum",object[24]!=null ?object[24]:"" );
+				 if(thisRecid != null){
+					 FollowSheet followSheet = new FollowSheet();
+					 followSheet.setUserRecid(thisRecid);
+					 followSheet.setAnchorRecid((Integer) object[19]);
+					 Integer ints = operationDao.getFollowSheetsCount(pagesize, currpage, cxtj, followSheet);
+					 if(ints>0){
+						 map.put("isFollow",1 );
+					 }else{
+						 map.put("isFollow",0 );
+					 }
+				 }
+				 
 				 amp.add(map);
 			 }
 		 }

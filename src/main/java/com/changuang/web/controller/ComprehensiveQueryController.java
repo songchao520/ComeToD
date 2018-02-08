@@ -1,5 +1,8 @@
 package com.changuang.web.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -11,10 +14,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.changuang.domain.entity.AnchorOnline;
 import com.changuang.domain.entity.FollowSheet;
 import com.changuang.domain.entity.FriendSheet;
+import com.changuang.domain.entity.HomeUser;
 import com.changuang.domain.entity.PushActivity;
+import com.changuang.domain.entity.RewardSheet;
 import com.changuang.domain.entity.UserSheet;
 import com.changuang.domain.service.AnchorService;
 import com.changuang.domain.service.FriendsService;
+import com.changuang.domain.service.GiftService;
+import com.changuang.domain.service.HomeUserService;
 import com.changuang.domain.service.OperationService;
 import com.changuang.domain.service.PushActivityService;
 import com.changuang.domain.service.UserService;
@@ -39,6 +46,70 @@ public class ComprehensiveQueryController {
 	AnchorService anchorService;
 	@Autowired
 	PushActivityService pushActivityService;
+	@Autowired
+	GiftService giftService;
+	@Autowired
+	HomeUserService homeUserService;
+	
+	@SuppressWarnings("unchecked")
+	@ResponseBody 
+	@RequestMapping("/closeHome") 
+	public JSONObject closeHome(Integer homeRecid){
+		JSONObject jso = new JSONObject();	
+		AnchorOnline anchorOnline = new AnchorOnline();
+		anchorOnline.setRecid(homeRecid);
+		List<Map<String, Object>> lis = anchorService.getAnchorOnlines(null, null, null, anchorOnline,null);
+		if(lis.size() == 0){
+			jso.put("msg", "没有此主键");			
+			jso.put("result", "error");
+			jso.put("data", null);
+			return jso;
+		}
+		
+		String createTimeString = (String) lis.get(0).get("createTime");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		
+		FollowSheet followSheet = new FollowSheet();
+		try {
+			followSheet.setCreateTime(sdf.parse(createTimeString));
+			followSheet.setAnchorRecid((Integer) lis.get(0).get("userRecid"));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Integer followCount =  operationService.getFollowSheetsCount(null, null, null, followSheet);
+		lis.get(0).put("followCount", followCount);
+		RewardSheet rewardSheet = new RewardSheet();
+		try {
+			rewardSheet.setCreateTime(sdf.parse(createTimeString));
+			rewardSheet.setAnchorRecid((Integer) lis.get(0).get("anchorRecid"));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		List<Map<String, Object>> lisgif = giftService.getRankList(null, null, null, rewardSheet);
+		
+		lis.get(0).put("moneySum", lisgif.get(0).get("moneySum"));
+		anchorService.DeleteAnchorOnline(anchorOnline);
+		HomeUser homeUser = new HomeUser();
+		homeUser.setHomeRecid(homeRecid);
+		homeUserService.DeleteHomeUser(homeUser);
+		jso.put("msg", "关闭房间成功");			
+		jso.put("result", "success");
+		try {
+			Date newDate = new Date();
+			long diff = newDate.getTime() - sdf.parse(createTimeString).getTime();
+			long days = diff / (1000 * 60 * 60 * 24);     
+		    long hours = (diff-days*(1000 * 60 * 60 * 24))/(1000* 60 * 60);  
+		    long minutes = (diff-days*(1000 * 60 * 60 * 24)-hours*(1000* 60 * 60))/(1000* 60);  
+		    lis.get(0).put("dateTime",""+days+"天"+hours+"小时"+minutes+"分");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		jso.put("data", lis);
+		return jso;
+	}
 	/**
 	 * 
 	 * @param pagesize
@@ -145,11 +216,11 @@ public class ComprehensiveQueryController {
 		anchorOnline.setIsHot(1);
 		anchorOnline.setIsFree(1);
 		anchorOnline.setAnchorClass(1);
-		List lis = anchorService.getAnchorOnlines(null,null,null, anchorOnline);
+		List lis = anchorService.getAnchorOnlines(null,null,null, anchorOnline,null);
 		anchorOnline.setIsHot(1);
 		anchorOnline.setIsFree(1);
 		anchorOnline.setAnchorClass(2);
-		List lisss = anchorService.getAnchorOnlines(null,null,null, anchorOnline);
+		List lisss = anchorService.getAnchorOnlines(null,null,null, anchorOnline,null);
 		if(lis != null && liss!=null){
 			jso.put("relentimg",liss);
 			jso.put("anchorVoice", lis);

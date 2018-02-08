@@ -1,5 +1,5 @@
 package com.changuang.domain.entity;
-// Generated 2017-12-5 17:20:20 by Hibernate Tools 4.0.0.Final
+// Generated 2018-2-2 9:33:17 by Hibernate Tools 4.0.0.Final
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -28,16 +28,19 @@ public class GiftSheet implements java.io.Serializable {
 	private Date createTime;
 	private String giftPath;
 	private Integer isShow;
+	private Integer continuous;
 
 	public GiftSheet() {
 	}
 
-	public GiftSheet(String giftName, Float giftMoney, Date createTime, String giftPath, Integer isShow) {
+	public GiftSheet(String giftName, Float giftMoney, Date createTime, String giftPath, Integer isShow,
+			Integer continuous) {
 		this.giftName = giftName;
 		this.giftMoney = giftMoney;
 		this.createTime = createTime;
 		this.giftPath = giftPath;
 		this.isShow = isShow;
+		this.continuous = continuous;
 	}
 
 	@Id
@@ -96,6 +99,15 @@ public class GiftSheet implements java.io.Serializable {
 
 	public void setIsShow(Integer isShow) {
 		this.isShow = isShow;
+	}
+
+	@Column(name = "continuous")
+	public Integer getContinuous() {
+		return this.continuous;
+	}
+
+	public void setContinuous(Integer continuous) {
+		this.continuous = continuous;
 	}
 
 }

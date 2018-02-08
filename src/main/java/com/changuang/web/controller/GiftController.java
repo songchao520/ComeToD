@@ -2,6 +2,7 @@ package com.changuang.web.controller;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.changuang.domain.entity.GiftSheet;
 import com.changuang.domain.entity.RewardSheet;
+import com.changuang.domain.entity.UserSheet;
 import com.changuang.domain.service.GiftService;
+import com.changuang.domain.service.UserService;
 
 import net.sf.json.JSONObject;
 
@@ -23,6 +26,8 @@ import net.sf.json.JSONObject;
 public class GiftController {
 	@Autowired
 	GiftService giftService;
+	@Autowired
+	UserService UserService;
 	/**
 	 * 
 	 * @param pagesize
@@ -174,19 +179,72 @@ public class GiftController {
 	 * @param anchorSheet
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	@ResponseBody 
 	@RequestMapping("/saveRewardSheet") 
-	public JSONObject saveRewardSheet(RewardSheet rewardSheet){
-		Serializable sl = giftService.saveRewardSheet(rewardSheet);
+	public JSONObject saveRewardSheet(RewardSheet rewardSheet,Float giftPrice){
 		JSONObject jso = new JSONObject();
+		UserSheet userSheet = new UserSheet();
+		userSheet.setRecid(rewardSheet.getUserRecid());
+		List<Map<String, Object>>  lis = UserService.getUserSheets(null, null, null, userSheet);
+		float wealthAmount = (float) lis.get(0).get("wealthAmount");
+		if(wealthAmount<rewardSheet.getGiftNumber()*giftPrice ){
+			jso.put("msg", "余额不足");			
+			jso.put("result", "error");
+			jso.put("data", "");
+			return jso;
+		}else{
+			rewardSheet.setRewardAmount(rewardSheet.getGiftNumber()*giftPrice);
+		}
+		float shengyuz = wealthAmount-(rewardSheet.getGiftNumber()*giftPrice);
+		userSheet.setWealthAmount(shengyuz);
+		lis.get(0).put("wealthAmount", shengyuz);
+		float zongxiaofei  =  (float) lis.get(0).get("wealthZong");
+		zongxiaofei = zongxiaofei+(rewardSheet.getGiftNumber()*giftPrice);
+		userSheet.setWealthZong(zongxiaofei);
+		lis.get(0).put("wealthZong", zongxiaofei);
+		boolean flag = UserService.UpdateUserSheet(userSheet);
+		if(!flag){
+			jso.put("msg", "扣款失败");			
+			jso.put("result", "error");
+			jso.put("data", "");
+			return jso;
+		}
+		Serializable sl = giftService.saveRewardSheet(rewardSheet);
+		
 		if(sl != null){
 			jso.put("msg", "保存成功");			
 			jso.put("result", "success");
-			jso.put("data", sl);
+			jso.put("data", lis);
 		}else{
 			jso.put("msg", "保存失败");			
 			jso.put("result", "error");
-			jso.put("data", sl);
+			jso.put("data", "");
+		}
+		return jso;
+	}
+	/**
+	 * 
+	 * @param pagesize
+	 * @param currpage
+	 * @param cxtj
+	 * @return 
+	 * @desc 获取排行榜
+	 */
+	@SuppressWarnings("rawtypes")
+	@ResponseBody 
+	@RequestMapping("/getRankList")
+	public JSONObject getRankList(String pagesize, String currpage, String cxtj,RewardSheet rewardSheet){
+		List lis = giftService.getRankList(pagesize,currpage,cxtj,rewardSheet);
+		JSONObject jso = new JSONObject();
+		if(lis != null){
+			jso.put("msg", "获取成功");			
+			jso.put("result", "success");
+			jso.put("data", lis);
+		}else{
+			jso.put("msg", "获取失败");			
+			jso.put("result", "error");
+			jso.put("data", null);
 		}
 		return jso;
 	}
