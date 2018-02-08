@@ -673,9 +673,9 @@ public class AnchorDaoImpl implements AnchorDao {
 		}
 		if(anchorOnline.getAnchorClass()!=null){
 			if(anchorOnline.getAnchorClass() == 1){
-				sbf.append(" and ash.anchor_class  in (1,3)");
+				sbf.append(" and aon.anchor_class  in (1,3)");
 			}else{
-				sbf.append(" and ash.anchor_class  in (2,3)");
+				sbf.append(" and aon.anchor_class  in (2,3)");
 			}
 			
 		}

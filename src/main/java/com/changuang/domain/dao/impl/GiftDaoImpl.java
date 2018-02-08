@@ -46,7 +46,7 @@ public class GiftDaoImpl implements GiftDao {
 		}
 		sbf.append( " order by gs.gift_money ");
 		if(pagesize == null){
-			pagesize = "10";
+			pagesize = "100";
 		}
 		if(currpage == null){
 			currpage = "1";
@@ -87,7 +87,7 @@ public class GiftDaoImpl implements GiftDao {
 		}
 		sbf.append( " order by gs.gift_money");
 		if(pagesize == null){
-			pagesize = "10";
+			pagesize = "100";
 		}
 		if(currpage == null){
 			currpage = "1";

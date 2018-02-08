@@ -54,6 +54,15 @@ public class OperationServiceImpl implements OperationService {
 				 map.put("userShowname",object[3]!=null ?object[3]:"" );
 				 map.put("userHeadimg",object[4]!=null ?object[4]:"" );
 				 map.put("userSex",object[5]!=null ?object[5]:"" );
+				 if(cxtj!=null && cxtj.equals("chakanGuanZhu")){
+					 if(object[6]!=null){
+						 map.put("isStartAnchor",1);
+						 map.put("homeRecid",object[6]);
+						 map.put("anchorRecid",object[7]);
+					 }else{
+						 map.put("isStartAnchor",0);
+					 }
+				 }
 				 amp.add(map);
 			 }
 		 }

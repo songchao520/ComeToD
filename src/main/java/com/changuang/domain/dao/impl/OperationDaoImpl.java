@@ -81,8 +81,15 @@ public class OperationDaoImpl implements OperationDao {
 	public List getFollowSheets(String pagesize, String currpage, String cxtj, FollowSheet followSheet) {
 		StringBuffer sbf = new StringBuffer();
 		sbf.append(" select fs.recid,fs.user_recid as urecid,fs.anchor_recid as furecid, ");
-		sbf.append(" us.user_showname,us.user_headimg,us.user_sex from follow_sheet as fs ");
+		sbf.append(" us.user_showname,us.user_headimg,us.user_sex ");
+		if(cxtj!=null && cxtj.equals("chakanGuanZhu")){
+			sbf.append(" ,aon.recid as homeRecid,aon.anchor_recid as anchorRecid ");
+		}
+		sbf.append(" from follow_sheet as fs ");
 		sbf.append(" LEFT JOIN user_sheet as us on fs.anchor_recid = us.recid ");
+		if(cxtj!=null && cxtj.equals("chakanGuanZhu")){
+			sbf.append(" LEFT JOIN anchor_online as aon on aon.user_recid = fs.anchor_recid");
+		}
 		sbf.append(" where fs.recid != 1000000 ");
 		if(followSheet.getUserRecid() != null){
 			sbf.append(" and fs.user_recid = :userRecid ");
