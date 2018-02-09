@@ -312,10 +312,6 @@ public class AnchorController {
 			jso.put("msg", "获取成功");			
 			jso.put("result", "success");
 			jso.put("data", lis);
-			PushActivity pushActivity = new PushActivity();
-			pushActivity.setSource("6");
-			List liss = pushActivityService.getPushActivitys(null, null, null, pushActivity);
-			jso.put("notice", liss);
 		}else{
 			jso.put("msg", "获取失败");			
 			jso.put("result", "error");

@@ -61,6 +61,38 @@ public class HomeUserController {
 	 * @param currpage
 	 * @param cxtj
 	 * @return 
+	 * @desc 比对房间人数是否满员
+	 */
+	@ResponseBody 
+	@RequestMapping("/compareHomeUser")
+	public JSONObject compareHomeUser(Integer userNum,HomeUser homeUser){
+		Integer userCount = homeUserService.getHomeUsersCount(null,null,null,homeUser);
+		
+		JSONObject jso = new JSONObject();
+		if(userCount != null){
+			if(userCount<userNum){
+				jso.put("msg", "获取成功");			
+				jso.put("result", "success");
+				jso.put("data", true);
+			}else{
+				jso.put("msg", "人数已达到最大限制");			
+				jso.put("result", "false");
+				jso.put("data", false);
+			}
+			
+		}else{
+			jso.put("msg", "获取失败");			
+			jso.put("result", "error");
+			jso.put("data", null);
+		}
+		return jso;
+	}
+	/**
+	 * 
+	 * @param pagesize
+	 * @param currpage
+	 * @param cxtj
+	 * @return 
 	 * @desc 获取房间用户
 	 */
 	@ResponseBody 

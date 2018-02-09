@@ -51,6 +51,31 @@ public class OperationController {
 		return jso;
 	}
 	/**
+	 * 
+	 * @param pagesize
+	 * @param currpage
+	 * @param cxtj
+	 * @return 
+	 * @desc 获取用户关注
+	 */
+	@ResponseBody 
+	@RequestMapping("/getFollowSheetsTwo")
+	@SuppressWarnings("rawtypes")
+	public JSONObject getFollowSheetsTwo(String pagesize, String currpage, String cxtj,FollowSheet followSheet){
+		List lis = operationService.getFollowSheets(pagesize,currpage,cxtj,followSheet);
+		JSONObject jso = new JSONObject();
+		if(lis != null){
+			jso.put("msg", "获取成功");			
+			jso.put("result", "success");
+			jso.put("info", lis);
+		}else{
+			jso.put("msg", "获取失败");			
+			jso.put("result", "error");
+			jso.put("info", null);
+		}
+		return jso;
+	}
+	/**
 	 * @desc 添加用户关注
 	 * @param followSheet
 	 * @return
@@ -93,7 +118,7 @@ public class OperationController {
 			jso.put("result", "success");
 			jso.put("data", "true");
 		}else{
-			jso.put("msg", "删除成功");			
+			jso.put("msg", "删除失败");			
 			jso.put("result", "error");
 			jso.put("data", "false");
 		}

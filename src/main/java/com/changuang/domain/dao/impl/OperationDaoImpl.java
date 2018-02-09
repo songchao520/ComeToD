@@ -83,7 +83,7 @@ public class OperationDaoImpl implements OperationDao {
 		sbf.append(" select fs.recid,fs.user_recid as urecid,fs.anchor_recid as furecid, ");
 		sbf.append(" us.user_showname,us.user_headimg,us.user_sex ");
 		if(cxtj!=null && cxtj.equals("chakanGuanZhu")){
-			sbf.append(" ,aon.recid as homeRecid,aon.anchor_recid as anchorRecid ");
+			sbf.append(" ,aon.recid as homeRecid,aon.anchor_recid as anchorRecid,aon.user_num,aon.anchor_class ");
 		}
 		sbf.append(" from follow_sheet as fs ");
 		sbf.append(" LEFT JOIN user_sheet as us on fs.anchor_recid = us.recid ");

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.changuang.domain.dao.HomeUserDao;
 import com.changuang.domain.dao.OperationDao;
 import com.changuang.domain.entity.CommentSheet;
 import com.changuang.domain.entity.FollowSheet;
@@ -27,6 +28,8 @@ import com.changuang.domain.service.OperationService;
 public class OperationServiceImpl implements OperationService {
 	@Autowired
 	OperationDao operatioDao;
+	@Autowired
+	HomeUserDao homeUserDao;
 	/**
 	 * 
 	 * @param pagesize
@@ -59,6 +62,8 @@ public class OperationServiceImpl implements OperationService {
 						 map.put("isStartAnchor",1);
 						 map.put("homeRecid",object[6]);
 						 map.put("anchorRecid",object[7]);
+						 map.put("userNum",object[8]);
+						 map.put("anchorClass",object[9]);
 					 }else{
 						 map.put("isStartAnchor",0);
 					 }
