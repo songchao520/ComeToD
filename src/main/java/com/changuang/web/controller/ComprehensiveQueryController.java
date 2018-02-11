@@ -236,4 +236,23 @@ public class ComprehensiveQueryController {
 		}
 		return jso;
 	}
+	
+	@SuppressWarnings("unchecked")
+	@ResponseBody 
+	@RequestMapping("/LogOutUser") 
+	public JSONObject LogOutUser(Integer userRecid){
+		JSONObject jso = new JSONObject();
+		AnchorOnline anchorOnline = new AnchorOnline();
+		anchorOnline.setUserRecid(userRecid);
+		List<Map<String, Object>> lis = anchorService.getAnchorOnlines(null,null,null, anchorOnline,null);
+		if(lis!=null && lis.size() != 0){
+			this.closeHome((Integer) lis.get(0).get("recid"));
+		}else{
+			HomeUser homeUser = new HomeUser();
+			homeUser.setUserRecid(userRecid);
+			homeUserService.DeleteHomeUser(homeUser);
+		}
+		
+		return jso;
+	}
 }

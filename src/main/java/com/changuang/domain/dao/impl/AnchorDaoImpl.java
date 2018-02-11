@@ -176,6 +176,7 @@ public class AnchorDaoImpl implements AnchorDao {
 		anchorSheet.setSmallPhoto(ass.getSmallPhoto());
 		Serializable sz = session.save(anchorSheet);
 		ass.setAnchorRecid(Integer.parseInt(sz.toString()));
+		ass.setExamineStatus(null);
 		this.UpdateAnchorStatusSheet(ass);
 	    return  sz ;  
 	}
@@ -611,6 +612,9 @@ public class AnchorDaoImpl implements AnchorDao {
 				UserSheet us = new UserSheet();
 				us.setRecid(anchorStatusSheet.getUserRecid());
 				us.setAnchorStatus(anchorStatusSheet.getExamineStatus());
+				if(anchorStatusSheet.getExamineStatus() == 3){
+					us.setUtypeRecid(2);
+				}
 				ud.UpdateUserSheet(us);
 			}
 			

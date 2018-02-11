@@ -203,11 +203,11 @@ public class AnchorController {
 			String type = uploadFile.getOriginalFilename().substring(uploadFile.getOriginalFilename().indexOf("."));
 			String fileName = uploadFile.getOriginalFilename();
 			String filename  = showname+i+type;
-			if(fileName.equals("bigScreen")){
+			if(fileName.indexOf("bigScreen")!=-1){
 				anchorStatusSheet.setMyPhoto(topath+filename);
-			}else if(fileName.equals("smallScreen")){
+			}else if(fileName.indexOf("smallScreen")!=-1){
 				anchorStatusSheet.setSmallPhoto(topath+filename);
-			}else if(fileName.equals("cardScreen")){			
+			}else if(fileName.indexOf("cardScreen")!=-1){			
 				anchorStatusSheet.setExaminePhoto(topath+filename);
 			}		
 			

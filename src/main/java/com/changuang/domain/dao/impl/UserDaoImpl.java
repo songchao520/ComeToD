@@ -16,8 +16,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.changuang.domain.dao.UserDao;
-import com.changuang.domain.entity.AnchorOnline;
-import com.changuang.domain.entity.AnchorSheet;
 import com.changuang.domain.entity.UserSheet;
 import com.changuang.domain.entity.UserType;
 import com.changuang.web.controller.LoginController;
@@ -75,6 +73,10 @@ public class UserDaoImpl implements UserDao {
 			userSheet.setUserLoginpassword("1");
 		}
 		userSheet.setUserCity("火星");
+		userSheet.setWealthZong(lg);
+		if(userSheet.getUserHeadimg() != null){
+			userSheet.setUserHeadimg("images/headImg/ls.jpg");
+		}
 		Session  session=sessionFactory.getCurrentSession();  
 	    return   session.save(userSheet); 
 	}
@@ -530,23 +532,6 @@ public class UserDaoImpl implements UserDao {
 			Object[] object  = (Object[]) results.get(0);
 			 if(object[0]!=null){
 				 lg = Integer.parseInt(object[0]+"");
-				 if(object[1] != null){
-					 int ans =  Integer.parseInt(object[1]+"");
-					 if(ans == 3){
-						 AnchorDaoImpl adl = new AnchorDaoImpl();
-						 AnchorSheet as = new AnchorSheet();
-						 as.setRecid(lg);
-						 Object[] objects  = (Object[]) adl.getAnchorSheets(null, null, null, as,null).get(0);
-						 AnchorOnline anchorOnline = new AnchorOnline();
-						 anchorOnline.setAnchorRecid((Integer) objects[0]);
-						 anchorOnline.setAnchorClass((Integer) object[15]);
-						 anchorOnline.setAnchorLabel((String) object[19]);
-						 anchorOnline.setIsHot((Integer) object[20]);
-						 anchorOnline.setIsFree(1);
-						 anchorOnline.setIsRecommend((Integer) object[21]);
-						 adl.saveAnchorOnline(anchorOnline);
-					 }
-				 }
 				
 				 return lg+"";
 			 }
@@ -571,23 +556,6 @@ public class UserDaoImpl implements UserDao {
 		Object[] object  = (Object[]) results.get(0);
 		 if(object[0]!=null){
 			 lg = Integer.parseInt(object[0]+"");
-			 if(object[1] != null){
-				 int ans =  Integer.parseInt(object[1]+"");
-				 if(ans == 3){
-					 AnchorDaoImpl adl = new AnchorDaoImpl();
-					 AnchorSheet as = new AnchorSheet();
-					 as.setRecid(lg);
-					 Object[] objects  = (Object[]) adl.getAnchorSheets(null, null, null, as,null).get(0);
-					 AnchorOnline anchorOnline = new AnchorOnline();
-					 anchorOnline.setAnchorRecid((Integer) objects[0]);
-					 anchorOnline.setAnchorClass((Integer) object[15]);
-					 anchorOnline.setAnchorLabel((String) object[19]);
-					 anchorOnline.setIsHot((Integer) object[20]);
-					 anchorOnline.setIsFree(1);
-					 anchorOnline.setIsRecommend((Integer) object[21]);
-					 adl.saveAnchorOnline(anchorOnline);
-				 }
-			 }
 		 }
 			 return lg+"";
 		 }
